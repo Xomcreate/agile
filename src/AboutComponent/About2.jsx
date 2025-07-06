@@ -21,7 +21,7 @@ function About2() {
             <p>for HR Consult</p>
           </div>
 
-          <a href="/get-started">
+          <a href="/contact">
             <button className="bg-white text-purple-700 font-bold py-3 px-6 rounded-full shadow-md hover:bg-purple-100 transition-all duration-200">
               <u>Get</u> Started Now
             </button>

@@ -6,7 +6,7 @@ function BlogD() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
       <div className="bg-purple-100 rounded-2xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-purple-800 mb-6 text-center">
+        <h2 className="text-2xl font-bold text-[purple] mb-6 text-center">
           📝 Leave a Review or Comment
         </h2>
 
@@ -51,7 +51,7 @@ function BlogD() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="bg-purple-700 hover:bg-purple-800 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300"
+            className="bg-[purple] hover:bg-purple-800 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300"
           >
             Submit Review
           </button>

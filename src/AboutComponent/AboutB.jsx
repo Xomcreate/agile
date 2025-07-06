@@ -68,14 +68,14 @@ function AboutB() {
             drive productivity and success.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <Link to="/services" className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition">
-              ✅ Strategic Workforce Planning
-            </Link>
-            <Link to="/compliance" className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition">
-              🔍 Compliance & Risk Advisory
-            </Link>
-          </div>
+         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+  <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
+    ✅ Strategic Workforce Planning
+  </div>
+  <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
+    🔍 Compliance & Risk Advisory
+  </div>
+</div>
 
           <div className="flex items-center justify-center md:justify-start gap-6 flex-wrap">
             <Link to="/contact">
@@ -92,7 +92,7 @@ function AboutB() {
             </Link>
 
             <Link
-              to="/testimonials"
+              to="/test"
               className="text-purple-700 font-semibold hover:underline flex items-center gap-1 transition"
             >
               Testimonials <span className="text-lg">💬</span>

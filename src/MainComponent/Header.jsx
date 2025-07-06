@@ -50,7 +50,7 @@ export default function Header() {
               ['/', 'Home'],
               ['/about', 'About'],
               ['/service', 'Service'],
-              ['/testimonials', 'Testimonials'],
+              ['/test', 'Testimonials'],
               ['/blog', 'Blog'],
               ['/contact', 'Contact'],
             ].map(([path, label]) => (
@@ -107,7 +107,7 @@ export default function Header() {
               ['/', 'Home'],
               ['/about', 'About'],
               ['/service', 'Service'],
-              ['/testimonials', 'Testimonials'],
+              ['/test', 'Testimonials'],
               ['/blog', 'Blog'],
               ['/contact', 'Contact'],
               ['/contact', 'Get A Quote'],
