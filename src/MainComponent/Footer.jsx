@@ -68,7 +68,7 @@ const Footer = () => (
               className="flex-1 px-3 py-2 text-black bg-white rounded-l-md focus:outline-none"
             />
             <button
-              onClick={() => (window.location.href = '/subscribe')}
+              onClick={() => (window.location.href = '/')}
               className="bg-black hover:bg-gray-800 px-4 py-2 rounded-r-full text-white font-medium"
             >
               Subscribe
@@ -152,13 +152,13 @@ const Footer = () => (
 
         {/* Social Icons */}
         <div className="flex gap-4 mt-4 justify-center md:justify-start">
-          <a href="https://facebook.com/agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
+          <a href="https://www.facebook.com/share/1FVpy2jaZP/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
             <FaFacebookF />
           </a>
-          <a href="https://twitter.com/agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
+          <a href="https://x.com/Agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
             <FaTwitter />
           </a>
-          <a href="https://instagram.com/agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
+          <a href="https://www.instagram.com/_agile360pmc/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
             <FaInstagram />
           </a>
         </div>

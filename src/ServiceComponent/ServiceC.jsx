@@ -73,12 +73,12 @@ We begin with a comprehensive analysis of your business to understand its strate
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           viewport={{ once: false, amount: 0.3 }}
-          className="text-center mb-12"
+          className="text-center mb-10"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold uppercase text-[#af08af] tracking-wide">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold uppercase text-[#af08af] tracking-wide">
             Services
           </h2>
-          <p className="mt-4 text-[15px] md:text-lg max-w-2xl mx-auto text-gray-700 leading-relaxed font-medium">
+          <p className="mt-2 text-xs sm:text-sm md:text-base max-w-2xl mx-auto text-gray-700 leading-relaxed font-normal">
             Discover the strategic services we offer to elevate your HR operations,  
             foster growth, and ensure long-term success.
           </p>
@@ -99,7 +99,7 @@ We begin with a comprehensive analysis of your business to understand its strate
                     isOpen ? "bg-gradient-to-r from-[#af08af]/10 to-[#af08af]/5" : "hover:bg-[#af08af]/10"
                   }`}
                 >
-                  <span className="text-lg md:text-xl font-semibold text-[#af08af]">
+                  <span className="text-base sm:text-lg font-semibold text-[#af08af]">
                     {item.title}
                   </span>
                   <motion.span
@@ -118,7 +118,7 @@ We begin with a comprehensive analysis of your business to understand its strate
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="px-6 pb-4 text-gray-800 text-sm md:text-[16px] font-normal leading-[1.8rem] whitespace-pre-wrap"
+                      className="px-6 pb-4 text-gray-800 text-xs sm:text-sm md:text-[15px] font-normal leading-[1.7rem] whitespace-pre-wrap"
                     >
                       {item.desc}
                     </motion.div>

@@ -1,44 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Home2() {
-  // Placeholder image array — later replace with API data
-  const [images] = useState([
-    'https://via.placeholder.com/600x400?text=Work+1',
-    'https://via.placeholder.com/600x400?text=Work+2',
-    'https://via.placeholder.com/600x400?text=Work+3',
-    'https://via.placeholder.com/600x400?text=Work+4',
-    'https://via.placeholder.com/600x400?text=Work+5',
-    'https://via.placeholder.com/600x400?text=Work+6',
-  ]);
+export default function Home2() {
+  const [works, setWorks] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/works')
+      .then(res => setWorks(res.data))
+      .catch(err => console.error('Error fetching works:', err));
+  }, []);
 
   return (
     <div className="bg-white py-16 px-6 md:px-20 w-full">
       {/* Heading */}
       <div className="text-center mb-10">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Latest Works</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-800 mb-2">
+          Latest Works
+        </h2>
         <p className="text-lg md:text-xl text-gray-600 font-medium">
           Recently We’ve Finished These Works<br />
           With Highly Satisfaction
         </p>
       </div>
 
-      {/* Image Gallery */}
+      {/* Works Grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-        {images.slice(0, 6).map((src, index) => (
-          <div
-            key={index}
-            className="overflow-hidden rounded-xl shadow-md hover:scale-105 transition duration-300"
-          >
-            <img
-              src={src}
-              alt={`Work ${index + 1}`}
-              className="w-full h-60 object-cover"
-            />
-          </div>
-        ))}
+        {works.slice(0, 6).map((work, idx) => {
+          const img = work.images[0];
+          const src = img
+            ? (img.url.startsWith('http') ? img.url : `${img.url}`)
+            : 'https://via.placeholder.com/600x400?text=No+Image';
+
+          return (
+            <div
+              key={work._id}
+              className="overflow-hidden rounded-xl shadow-md hover:shadow-lg transition duration-300 bg-white"
+            >
+              <img
+                src={src}
+                alt={work.title || `Work ${idx + 1}`}
+                className="w-full h-60 object-cover"
+              />
+              <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">{work.title}</h3>
+                <p className="text-sm text-gray-600">{work.description}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 }
-
-export default Home2;

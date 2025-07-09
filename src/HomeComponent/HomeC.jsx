@@ -32,7 +32,7 @@ function HomeC() {
         >
           {/* Centered Title & Stars */}
           <div className="text-center">
-            <h2 className="text-2xl md:text-3xl font-bold">Our Mission</h2>
+            <h2 className="text-xl md:text-2xl font-semibold">Our Mission</h2>
             <div className="text-yellow-300 text-xl mt-2">⭐⭐⭐⭐⭐</div>
           </div>
 

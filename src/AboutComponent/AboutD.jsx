@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import img1 from '../assets/ball.jpg'; // First image
-import img2 from '../assets/gee.jpg'; // Second image
+import img1 from '../assets/ball.jpg';
+import img2 from '../assets/boo.jpg';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -25,7 +25,7 @@ function AboutD() {
     <div className="bg-[#e9f8f5] w-full py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
 
-        {/* ---------- IMAGE COLUMN ---------- */}
+        {/* IMAGE COLUMN */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -45,7 +45,7 @@ function AboutD() {
           />
         </motion.div>
 
-        {/* ---------- TEXT COLUMN ---------- */}
+        {/* TEXT COLUMN */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -54,13 +54,13 @@ function AboutD() {
           className="text-center md:text-left"
         >
           <div className="relative inline-block mb-6">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight z-10 relative">
+            <h2 className="text-xl md:text-3xl font-extrabold text-gray-800 leading-tight z-10 relative">
               We Provide Creative Solutions
             </h2>
             <span className="absolute bottom-0 left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 w-24 h-1 bg-purple-600 rounded-full"></span>
           </div>
 
-          <p className="text-gray-700 mb-6 max-w-xl mx-auto md:mx-0 text-[15px] md:text-base leading-relaxed">
+          <p className="text-gray-700 mb-6 max-w-xl mx-auto md:mx-0 text-sm md:text-[15px] leading-relaxed">
             Agile360 PMC delivers world-class HR strategies, compliance audits, and consulting services.
             We help you grow and scale your business while staying aligned with modern HR standards.
           </p>
@@ -85,8 +85,8 @@ function AboutD() {
                 whileHover={{ scale: 1.04 }}
                 className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-md transition-transform"
               >
-                <div className="text-purple-600 text-xl">✔️</div>
-                <span className="font-medium text-gray-700">{item}</span>
+                <div className="text-purple-600 text-lg">✔️</div>
+                <span className="font-medium text-sm text-gray-700">{item}</span>
               </motion.div>
             ))}
           </motion.div>

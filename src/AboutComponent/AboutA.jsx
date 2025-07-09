@@ -52,15 +52,14 @@ function AboutA() {
             transition={{ delay: 0.5, duration: 1 }}
             className="bg-black/60 p-6 sm:p-10 rounded-2xl max-w-3xl text-white"
           >
-            <h1 className="text-3xl md:text-5xl font-extrabold mb-3">
+            <h1 className="text-xl md:text-3xl font-bold mb-3">
               Who <span className="border-b-4 border-purple-600 pb-1">We Are</span>
             </h1>
 
-            <p className="text-sm sm:text-base md:text-lg mb-4 leading-relaxed">
-              Agile360 PMC is a project management and HR consulting firm
-              committed to optimizing business performance through strategic
-              human resource solutions and compliance audits. We help you
-              navigate complexity, remain compliant, and scale effectively.
+            <p className="text-xs sm:text-sm md:text-base mb-4 leading-relaxed">
+              Agile360 PMC is a project management and HR consulting firm committed to helping
+              businesses improve performance through smart HR solutions and compliance support.
+              We simplify complexity and help you grow with clarity.
             </p>
 
             <p className="text-sm sm:text-base font-medium flex items-center justify-center gap-2">

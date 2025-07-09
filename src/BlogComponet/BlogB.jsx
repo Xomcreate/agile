@@ -1,33 +1,7 @@
-import React from 'react';
+// BlogB.jsx
+import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaBullhorn } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-
-const events = [
-  {
-    date: 'Aug 15, 2025',
-    title: 'Annual Tech Conference 2025',
-    description: 'Join industry leaders to explore the latest innovations in technology and networking opportunities.',
-    imageUrl: 'https://via.placeholder.com/400x250?text=Tech+Conference',
-  },
-  {
-    date: 'Sep 10, 2025',
-    title: 'HR & Compliance Workshop',
-    description: 'A hands-on workshop covering modern HR practices and compliance regulations for businesses.',
-    imageUrl: 'https://via.placeholder.com/400x250?text=HR+Workshop',
-  },
-  {
-    date: 'Oct 05, 2025',
-    title: 'Product Launch Event',
-    description: 'Discover our newest product and enjoy live demos and Q&A sessions with the developers.',
-    imageUrl: 'https://via.placeholder.com/400x250?text=Product+Launch',
-  },
-  {
-    date: 'Nov 20, 2025',
-    title: 'Year-End Gala & Awards',
-    description: 'Celebrate success and excellence with our team and partners at the annual gala event.',
-    imageUrl: 'https://via.placeholder.com/400x250?text=Gala+&+Awards',
-  },
-];
 
 const containerVariants = {
   hidden: {},
@@ -51,47 +25,66 @@ const fadeUp = {
 };
 
 function BlogB() {
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/blogs')
+      .then((res) => res.json())
+      .then((data) => {
+        const published = data.filter(
+          (blog) => blog.status?.toLowerCase() === 'published'
+        );
+        setBlogs(published);
+      })
+      .catch((err) => {
+        console.error('Error fetching blogs:', err);
+      });
+  }, []);
+
   return (
-    <div className="max-w-7xl mx-auto px-6 md:px-12 py-16">
-      {/* Heading */}
-      <div className="flex items-center mb-12 gap-4">
-        <FaBullhorn className="text-purple-600 text-4xl" />
-        <h2 className="text-4xl font-extrabold text-purple-800">Upcoming Events</h2>
+    <div className="max-w-7xl mx-auto px-4 md:px-10 py-12">
+      <div className="flex items-center mb-10 gap-3">
+        <FaBullhorn className="text-purple-600 text-2xl md:text-3xl" />
+        <h2 className="text-2xl md:text-3xl font-bold text-purple-800">
+          Latest Blog Posts
+        </h2>
       </div>
 
-      {/* Events List with stagger container */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
-        {events.map(({ date, title, description, imageUrl }, idx) => (
+        {blogs.map(({ _id, date, title, description, thumbnail }) => (
           <motion.div
-            key={idx}
-            className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer overflow-hidden"
+            key={_id}
+            className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
             variants={fadeUp}
           >
-            {/* Event image */}
             <img
-              src={imageUrl}
+              src={`http://localhost:5000${thumbnail}`}
               alt={title}
-              className="w-full h-48 object-cover rounded-t-xl"
+              className="w-full h-44 object-cover rounded-t-xl"
             />
-
-            {/* Text content */}
-            <div className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <FaCalendarAlt className="text-purple-500 text-xl" />
-                <time className="text-purple-700 font-semibold">{date}</time>
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <FaCalendarAlt className="text-purple-500 text-lg" />
+                <time className="text-purple-700 text-sm font-semibold">{date}</time>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
-              <p className="text-gray-700 leading-relaxed">{description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
+              <p className="text-sm text-gray-700">{description.slice(0, 100)}...</p>
             </div>
           </motion.div>
         ))}
       </motion.div>
+
+      {blogs.length === 0 && (
+        <p className="text-center text-sm text-gray-500 mt-10">
+          No published blog posts yet.
+        </p>
+      )}
     </div>
   );
 }

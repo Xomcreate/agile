@@ -1,87 +1,124 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-function Upload() {
-  const [uploads, setUploads] = useState([]);
+export default function Upload() {
+  const [uploads, setUploads]   = useState([]);
   const [formData, setFormData] = useState({
-    title: '',
+    title:       '',
     description: '',
-    images: [],
+    images:      []
   });
+  const [loading, setLoading]   = useState(false);
 
-  // Handle input fields (title, description)
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  // Handle file selection and preview creation
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    const imagePreviews = files.map((file) => ({
-      id: Date.now() + Math.random(),
-      url: URL.createObjectURL(file),
-      file,
-    }));
-    setFormData((prev) => ({
-      ...prev,
-      images: [...prev.images, ...imagePreviews],
-    }));
-  };
-
-  // Submit new post
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.title || !formData.description || formData.images.length === 0) return;
-
-    const newPost = {
-      id: Date.now(),
-      title: formData.title,
-      description: formData.description,
-      images: formData.images,
+  useEffect(() => {
+    // Load existing uploads when the component mounts
+    const fetchUploads = async () => {
+      try {
+        const res = await axios.get('/api/works');
+        setUploads(res.data);
+      } catch (err) {
+        console.error('Failed to fetch uploads:', err);
+      }
     };
+    fetchUploads();
+  }, []);
 
-    setUploads([newPost, ...uploads]);
-    setFormData({ title: '', description: '', images: [] });
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(fd => ({ ...fd, [name]: value }));
   };
 
-  // DELETE entire uploaded post
-  const handleDeletePost = (postId) => {
-    const updated = uploads.filter((upload) => upload.id !== postId);
-    setUploads(updated);
+  const handleImageChange = e => {
+    const files = Array.from(e.target.files);
+    const previews = files.map(file => ({
+      id:  Date.now() + Math.random(),
+      file,
+      url: URL.createObjectURL(file)
+    }));
+    setFormData(fd => ({ ...fd, images: [...fd.images, ...previews] }));
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!formData.title || !formData.description || formData.images.length === 0) {
+      return alert('All fields are required!');
+    }
+
+    const body = new FormData();
+    body.append('title', formData.title);
+    body.append('description', formData.description);
+    formData.images.forEach(img => body.append('images', img.file));
+
+    const token = localStorage.getItem('adminToken');
+    if (!token) return alert('You must be logged in as admin.');
+
+    try {
+      setLoading(true);
+      const res = await axios.post('/api/works', body, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization:   `Bearer ${token}`
+        }
+      });
+      console.log('✅ Upload success:', res.data);
+      setUploads(u => [res.data, ...u]);
+      setFormData({ title: '', description: '', images: [] });
+    } catch (err) {
+      console.error('❌ Upload error:', err.response?.data || err.message);
+      alert('Upload failed: ' + (err.response?.data?.error || err.message));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const token = localStorage.getItem('adminToken');
+    if (!token) return alert('Unauthorized. Please log in.');
+
+    if (!window.confirm('Are you sure you want to delete this upload?')) return;
+
+    try {
+      await axios.delete(`/api/works/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUploads(u => u.filter(x => x._id !== id));
+      alert('Upload deleted successfully.');
+    } catch (err) {
+      console.error('❌ Delete error:', err.response?.data || err.message);
+      alert('Delete failed: ' + (err.response?.data?.error || err.message));
+    }
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl shadow-md w-full font-sans">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">📁 Upload Latest Works</h2>
-
-      {/* Upload Form */}
+    <div className="p-6 bg-white rounded-xl shadow-md w-full">
+      <h2 className="text-2xl font-bold mb-4">📁 Upload Latest Works</h2>
       <form onSubmit={handleSubmit} className="space-y-4 mb-6">
+        {/* Title */}
         <div>
-          <label className="block mb-1 font-semibold">Title</label>
+          <label>Title</label>
           <input
-            type="text"
             name="title"
             value={formData.title}
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
-            placeholder="Enter work title"
           />
         </div>
-
+        {/* Description */}
         <div>
-          <label className="block mb-1 font-semibold">Description</label>
+          <label>Description</label>
           <textarea
             name="description"
             rows="3"
             value={formData.description}
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
-            placeholder="Describe the work..."
           />
         </div>
-
+        {/* Images */}
         <div>
-          <label className="block mb-1 font-semibold">Upload Images</label>
+          <label>Upload Images</label>
           <input
             type="file"
             multiple
@@ -90,63 +127,52 @@ function Upload() {
             className="w-full"
           />
         </div>
-
-        {/* Preview Selected Images */}
         {formData.images.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-3">
-            {formData.images.map((img) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-3">
+            {formData.images.map(img => (
               <img
                 key={img.id}
                 src={img.url}
-                alt="preview"
-                className="h-32 w-full object-cover rounded"
+                alt=""
+                className="h-32 object-cover rounded"
               />
             ))}
           </div>
         )}
-
         <button
           type="submit"
-          className="bg-[#af08af] text-white px-4 py-2 rounded hover:bg-purple-800"
+          disabled={loading}
+          className="bg-[#af08af] text-white px-4 py-2 rounded disabled:opacity-50"
         >
-          Upload Post
+          {loading ? 'Uploading…' : 'Upload Post'}
         </button>
       </form>
 
-      {/* Uploaded Posts List */}
-      {uploads.length > 0 && (
-        <div className="space-y-6">
-          {uploads.map((post) => (
-            <div
-              key={post.id}
-              className="border border-gray-300 rounded-lg p-4 bg-gray-50 shadow-sm"
+      {/* Display Uploaded Posts */}
+      {uploads.map(post => (
+        <div key={post._id} className="border p-4 mb-4 rounded">
+          <div className="flex justify-between items-center mb-2">
+            <h3 className="text-xl font-semibold">{post.title}</h3>
+            <button
+              onClick={() => handleDelete(post._id)}
+              className="text-red-600 hover:text-red-800 transition"
             >
-              <div className="flex justify-between items-center mb-2">
-                <h3 className="text-xl font-semibold text-[#af08af]">{post.title}</h3>
-                <button
-                  onClick={() => handleDeletePost(post.id)}
-                  className="text-red-600 hover:text-red-800 text-sm font-medium"
-                >
-                  🗑️ Delete Post
-                </button>
-              </div>
-              <p className="text-gray-700 mb-3">{post.description}</p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {post.images.map((img) => (
-                  <img
-                    key={img.id}
-                    src={img.url}
-                    alt="Uploaded"
-                    className="h-32 w-full object-cover rounded"
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
+              🗑️
+            </button>
+          </div>
+          <p className="mb-3">{post.description}</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {post.images.map((img, i) => (
+              <img
+                key={i}
+                src={img.url.startsWith('http') ? img.url : `/uploads/${img.filename}`}
+                alt=""
+                className="h-32 object-cover rounded"
+              />
+            ))}
+          </div>
         </div>
-      )}
+      ))}
     </div>
   );
 }
-
-export default Upload;

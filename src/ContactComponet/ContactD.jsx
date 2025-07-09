@@ -56,7 +56,7 @@ function ContactD() {
           viewport={{ once: false, amount: 0.3 }}
         >
           <a
-            href="https://facebook.com/agile360pmc"
+            href="https://www.facebook.com/share/1FVpy2jaZP/"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white rounded-full p-3 hover:scale-110 transition-transform"
@@ -65,7 +65,7 @@ function ContactD() {
           </a>
 
           <a
-            href="https://twitter.com/agile360pmc"
+            href="https://x.com/Agile360pmcc"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white rounded-full p-3 hover:scale-110 transition-transform"
@@ -74,7 +74,7 @@ function ContactD() {
           </a>
 
           <a
-            href="https://instagram.com/agile360pmc"
+            href="https://www.instagram.com/_agile360pmc/"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white rounded-full p-3 hover:scale-110 transition-transform"
@@ -83,7 +83,7 @@ function ContactD() {
           </a>
 
           <a
-            href="https://linkedin.com/company/agile360pmc"
+            href="https://www.linkedin.com/company/agile360pmc/"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-white rounded-full p-3 hover:scale-110 transition-transform"

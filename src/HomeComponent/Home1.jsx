@@ -50,7 +50,7 @@ function Home1() {
           viewport={{ once: false, amount: 0.3 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold uppercase text-[#af08af] tracking-wide">
+          <h2 className="text-lg md:text-xl font-semibold uppercase text-[#af08af] tracking-wide">
             Services
           </h2>
           <p className="mt-4 text-[15px] md:text-lg max-w-2xl mx-auto text-gray-700 leading-relaxed font-medium">

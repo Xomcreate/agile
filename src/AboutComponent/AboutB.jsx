@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import imgA from '../assets/gee.jpg';
-import imgB from '../assets/me.jpg';
+import imgB from '../assets/misson.jpg';
 
 // Animations
 const fadeUp = {
@@ -36,16 +36,12 @@ function AboutB() {
           viewport={{ once: false, amount: 0.3 }}
           className="relative w-full h-[270px] md:h-[320px] flex items-center justify-center"
         >
-          {/* Top Image */}
           <div className="absolute top-0 left-[25%] w-44 h-44 md:w-52 md:h-52 z-10 rounded-xl overflow-hidden shadow-xl transform hover:scale-105 transition duration-500">
             <img src={imgA} alt="Top Left" className="w-full h-full object-cover" />
           </div>
 
-          {/* Bottom Image with bouncing badge */}
           <div className="absolute bottom-0 right-[25%] w-44 h-44 md:w-52 md:h-52 z-20 rounded-xl overflow-hidden shadow-xl transform hover:scale-105 transition duration-500">
             <img src={imgB} alt="Bottom Right" className="w-full h-full object-cover" />
-
-            {/* Purple bouncing badge */}
             <div className="absolute bg-purple-600 rounded-full -top-4 -right-4 w-14 h-14 md:w-16 md:h-16 z-30 border-4 border-white shadow-md animate-bounce" />
           </div>
         </motion.div>
@@ -58,7 +54,7 @@ function AboutB() {
           viewport={{ once: false, amount: 0.3 }}
           className="flex flex-col justify-center items-center md:items-start text-center md:text-left"
         >
-          <h2 className="text-2xl md:text-4xl font-extrabold text-purple-800 mb-5 leading-snug">
+          <h2 className="text-xl md:text-2xl font-extrabold text-purple-800 mb-5 leading-snug">
             Empowering Teams with <br className="hidden md:block" /> HR & Compliance Excellence
           </h2>
 
@@ -68,14 +64,14 @@ function AboutB() {
             drive productivity and success.
           </p>
 
-         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-  <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
-    ✅ Strategic Workforce Planning
-  </div>
-  <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
-    🔍 Compliance & Risk Advisory
-  </div>
-</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
+              ✅ Strategic Workforce Planning
+            </div>
+            <div className="flex items-center justify-center md:justify-start gap-2 text-gray-800 hover:text-purple-700 transition cursor-pointer">
+              🔍 Compliance & Risk Advisory
+            </div>
+          </div>
 
           <div className="flex items-center justify-center md:justify-start gap-6 flex-wrap">
             <Link to="/contact">

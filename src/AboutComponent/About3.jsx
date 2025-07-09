@@ -15,14 +15,12 @@ function About3() {
         viewport={{ once: false, amount: 0.3 }}
         className="text-center mb-10"
       >
-        <p className="text-sm text-[purple] uppercase tracking-wide">Meet Our Team</p>
-        <p className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#af08af] leading-tight mt-2">
-          We’ve Active & Dedicated Members <br />
-          for Helping the Clients
+        <p className="text-xs text-[purple] uppercase tracking-wide">Meet Our Team</p>
+        <p className="text-xl sm:text-2xl md:text-3xl font-bold text-[#af08af] leading-tight mt-2">
+          Dedicated Members Helping Our Clients
         </p>
-        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto mt-4">
-          Globally engage cross-media leadership skills before cross-media innovation.
-          Forward-develop standardized platforms without robust solutions.
+        <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto mt-3">
+          We bring expert solutions and committed professionals to support your organization's growth and compliance.
         </p>
       </motion.div>
 
@@ -36,12 +34,12 @@ function About3() {
           viewport={{ once: false, amount: 0.3 }}
           className="bg-white rounded-xl overflow-hidden shadow-md"
         >
-          <div className="h-80 w-full">
-            <img src={api} alt="Jane Doe" className="w-full h-full object-cover" />
+          <div className="h-72 w-full">
+            <img src={api} alt="Mattew Iriele" className="w-full h-full object-cover" />
           </div>
           <div className="text-center py-4">
-            <h3 className="text-xl font-bold text-[#af08af]">Mattew Iriele</h3>
-            <p className="text-sm text-gray-600">Head Of Operation</p>
+            <h3 className="text-lg font-semibold text-[#af08af]">Mattew Iriele</h3>
+            <p className="text-xs text-gray-600">Head Of Operation</p>
           </div>
         </motion.div>
 
@@ -53,12 +51,12 @@ function About3() {
           viewport={{ once: false, amount: 0.3 }}
           className="bg-white rounded-xl overflow-hidden shadow-md"
         >
-          <div className="h-80 w-full">
-            <img src={call} alt="Michael Smith" className="w-full h-full object-cover" />
+          <div className="h-72 w-full">
+            <img src={call} alt="Mercy Mattew" className="w-full h-full object-cover" />
           </div>
           <div className="text-center py-4">
-            <h3 className="text-xl font-bold text-[#af08af]">Mercy Mattew</h3>
-            <p className="text-sm text-gray-600">Chief Executive of Operation/Project Leader</p>
+            <h3 className="text-lg font-semibold text-[#af08af]">Mercy Mattew</h3>
+            <p className="text-xs text-gray-600">Chief Exec. / Project Lead</p>
           </div>
         </motion.div>
 
@@ -70,12 +68,12 @@ function About3() {
           viewport={{ once: false, amount: 0.3 }}
           className="bg-white rounded-xl overflow-hidden shadow-md"
         >
-          <div className="h-80 w-full">
-            <img src={girl} alt="Lisa Kim" className="w-full h-full object-cover" />
+          <div className="h-72 w-full">
+            <img src={girl} alt="Stella Egwu" className="w-full h-full object-cover" />
           </div>
           <div className="text-center py-4">
-            <h3 className="text-xl font-bold text-[#af08af]">Stella Egwu</h3>
-            <p className="text-sm text-gray-600">Complaince Case-Worker</p>
+            <h3 className="text-lg font-semibold text-[#af08af]">Stella Egwu</h3>
+            <p className="text-xs text-gray-600">Compliance Case-Worker</p>
           </div>
         </motion.div>
       </div>

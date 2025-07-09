@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import aboutImage from '../assets/boss.jpg';
+import aboutImage from '../assets/serve.jpg';
 import { motion } from 'framer-motion';
 import { FaHome } from 'react-icons/fa';
 
@@ -39,7 +39,6 @@ function ServiceA() {
         className="mx-[20px] md:mx-[100px] my-[10px] grid rounded-3xl bg-cover bg-center relative overflow-hidden"
         style={{ backgroundImage: `url(${aboutImage})` }}
       >
-        {/* ✅ Text Content inside translucent background */}
         <motion.div
           variants={fadeInUp}
           initial="hidden"
@@ -53,18 +52,18 @@ function ServiceA() {
             transition={{ delay: 0.6, duration: 1 }}
             className="bg-black/50 p-6 rounded-2xl max-w-3xl w-full"
           >
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white mb-2">
               Our{' '}
               <span className="border-b-[3px] border-purple-600 leading-tight">
                 Services
               </span>
             </h1>
 
-            <p className="text-sm md:text-lg text-white max-w-2xl mb-4">
-              We specialize in delivering expert consulting solutions, compliance risk assessments, and comprehensive audit services to help your organization stay ahead and fully aligned with industry standards.
+            <p className="text-xs md:text-sm text-white max-w-2xl mb-4">
+              We deliver expert consulting, risk assessment, and audit services to help your organization grow while staying compliant and competitive.
             </p>
 
-            <p className="text-base md:text-[20px] text-white font-medium flex items-center justify-center gap-2">
+            <p className="text-sm md:text-base text-white font-medium flex items-center justify-center gap-2">
               <Link to="/" className="text-white hover:underline flex items-center gap-1">
                 <FaHome className="text-white" />
                 Home

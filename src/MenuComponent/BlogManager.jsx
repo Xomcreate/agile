@@ -1,248 +1,183 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 
 function BlogManager() {
-  const [blogs, setBlogs] = useState([
-    {
-      id: 1,
-      title: 'The Importance of Compliance in HR Consulting',
-      description: 'Learn how HR compliance builds trust and reduces legal risk.',
-      date: 'July 5, 2025',
-      status: 'Published',
-      thumbnail: 'https://via.placeholder.com/80?text=HR1',
-    },
-  ]);
-
+  const [blogs, setBlogs] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    id: null,
     title: '',
     description: '',
     status: 'Draft',
-    thumbnail: '',
     imageFile: null,
   });
 
-  const handleDelete = (id) => {
-    setBlogs(blogs.filter((blog) => blog.id !== id));
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/blogs');
+      const data = await res.json();
+      setBlogs(data);
+    } catch (err) {
+      console.error('Failed to fetch blogs', err);
+    }
   };
 
-  const handleEdit = (blog) => {
-    setFormData({ ...blog, imageFile: null });
-    setShowForm(true);
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Delete this post?')) return;
+    await fetch(`http://localhost:5000/api/blogs/${id}`, { method: 'DELETE' });
+    fetchBlogs();
   };
 
   const handleAddNew = () => {
     setFormData({
-      id: null,
       title: '',
       description: '',
       status: 'Draft',
-      thumbnail: '',
       imageFile: null,
     });
     setShowForm(true);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const thumbnail = formData.imageFile
-      ? URL.createObjectURL(formData.imageFile)
-      : formData.thumbnail;
+    const form = new FormData();
+    form.append('title', formData.title);
+    form.append('description', formData.description);
+    form.append('status', formData.status);
+    if (formData.imageFile) form.append('thumbnail', formData.imageFile);
 
-    if (!formData.title || !thumbnail || !formData.description) return;
+    try {
+      const res = await fetch('http://localhost:5000/api/blogs', {
+        method: 'POST',
+        body: form,
+      });
 
-    if (formData.id) {
-      setBlogs(
-        blogs.map((blog) =>
-          blog.id === formData.id
-            ? { ...formData, thumbnail, date: blog.date }
-            : blog
-        )
-      );
-    } else {
-      const newBlog = {
-        ...formData,
-        id: Date.now(),
-        date: new Date().toLocaleDateString(),
-        thumbnail,
-      };
-      setBlogs([newBlog, ...blogs]);
+      if (!res.ok) {
+        const error = await res.json();
+        console.error('Upload failed:', error);
+        return;
+      }
+
+      setShowForm(false);
+      fetchBlogs();
+    } catch (err) {
+      console.error('Error submitting blog:', err);
     }
-
-    setShowForm(false);
   };
 
   return (
-    <div className="w-full min-h-screen bg-gray-100 p-4 sm:p-6 font-sans">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">📰 Blog Manager</h2>
+    <div className="w-full min-h-screen bg-gray-100 p-6 font-sans">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">📰 Blog Manager</h2>
         <button
           onClick={handleAddNew}
-          className="flex items-center gap-2 bg-[#af08af] hover:bg-purple-800 text-white px-4 py-2 rounded-md transition"
+          className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
         >
-          <FaPlus />
-          Add New Post
+          <FaPlus /> Add New Post
         </button>
       </div>
 
-      {/* Blog List */}
-      <div className="bg-white shadow-md rounded-xl overflow-x-auto">
-        <table className="min-w-full text-sm sm:text-base text-left">
-          <thead className="bg-purple-100 text-gray-700 font-semibold">
-            <tr>
-              <th className="px-4 py-3">Post</th>
-              <th className="px-4 py-3">Description</th>
-              <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3">Status</th>
-              <th className="px-4 py-3 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {blogs.map((post) => (
-              <tr key={post.id} className="border-t hover:bg-gray-50">
-                <td className="px-4 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-                  <img
-                    src={post.thumbnail}
-                    alt="thumbnail"
-                    className="w-16 h-16 object-cover rounded"
-                  />
-                  <span className="font-medium">{post.title}</span>
-                </td>
-                <td className="px-4 py-3 text-gray-700 max-w-sm">
-                  {post.description.length > 60
-                    ? post.description.slice(0, 60) + '...'
-                    : post.description}
-                </td>
-                <td className="px-4 py-3">{post.date}</td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`px-2 py-1 rounded text-xs font-medium ${
-                      post.status === 'Published'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-yellow-100 text-yellow-800'
-                    }`}
-                  >
-                    {post.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 flex gap-3 justify-center">
-                  <button
-                    onClick={() => handleEdit(post)}
-                    className="text-blue-600 hover:text-blue-800"
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(post.id)}
-                    className="text-red-600 hover:text-red-800"
-                  >
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {blogs.length === 0 && (
-              <tr>
-                <td colSpan="5" className="text-center text-gray-500 py-8">
-                  No blog posts found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        {blogs.map((post) => (
+          <div key={post._id} className="bg-white rounded-xl shadow-md overflow-hidden">
+            <img
+              src={`http://localhost:5000${post.thumbnail}`}
+              className="w-full h-48 object-cover"
+              alt={post.title}
+              onError={(e) => (e.target.style.display = 'none')}
+            />
+            <div className="p-4">
+              <h3 className="font-bold text-lg">{post.title}</h3>
+              <p className="text-gray-600 mt-2">{post.description.slice(0, 100)}...</p>
+              <p className="text-sm mt-2 text-gray-400">{post.date}</p>
+              <p
+                className={`text-xs inline-block mt-2 px-2 py-1 rounded ${
+                  post.status === 'Published'
+                    ? 'bg-green-200 text-green-800'
+                    : 'bg-yellow-200 text-yellow-800'
+                }`}
+              >
+                {post.status}
+              </p>
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  onClick={() => handleDelete(post._id)}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Add/Edit Form */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white w-full max-w-lg p-6 rounded-xl shadow-lg">
-            <h3 className="text-lg font-bold mb-4">
-              {formData.id ? 'Edit Post' : 'Add New Post'}
-            </h3>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+            <h2 className="font-bold text-lg mb-4">Add New Blog</h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-semibold mb-1">Title</label>
-                <input
-                  type="text"
-                  className="w-full border px-3 py-2 rounded"
-                  value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
+              <input
+                type="text"
+                placeholder="Title"
+                required
+                className="w-full border px-3 py-2 rounded"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+              />
+              <textarea
+                placeholder="Description"
+                required
+                className="w-full border px-3 py-2 rounded"
+                rows="4"
+                value={formData.description}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
+              ></textarea>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) =>
+                  setFormData({ ...formData, imageFile: e.target.files[0] })
+                }
+              />
+              {formData.imageFile && (
+                <img
+                  src={URL.createObjectURL(formData.imageFile)}
+                  className="h-32 w-full object-cover rounded"
+                  alt="Preview"
                 />
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-1">Description</label>
-                <textarea
-                  className="w-full border px-3 py-2 rounded"
-                  rows="3"
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                ></textarea>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold mb-1">Upload Image</label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="w-full"
-                  onChange={(e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                      setFormData({
-                        ...formData,
-                        imageFile: file,
-                        thumbnail: URL.createObjectURL(file),
-                      });
-                    }
-                  }}
-                />
-              </div>
-
-              {formData.thumbnail && (
-                <div className="mt-2">
-                  <img
-                    src={formData.thumbnail}
-                    alt="Preview"
-                    className="w-32 h-32 object-cover rounded"
-                  />
-                </div>
               )}
-
-              <div>
-                <label className="block text-sm font-semibold mb-1">Status</label>
-                <select
-                  className="w-full border px-3 py-2 rounded"
-                  value={formData.status}
-                  onChange={(e) =>
-                    setFormData({ ...formData, status: e.target.value })
-                  }
-                >
-                  <option value="Draft">Draft</option>
-                  <option value="Published">Published</option>
-                </select>
-              </div>
-
-              <div className="flex justify-end gap-4 mt-6">
+              <select
+                className="w-full border px-3 py-2 rounded"
+                value={formData.status}
+                onChange={(e) =>
+                  setFormData({ ...formData, status: e.target.value })
+                }
+              >
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+              </select>
+              <div className="flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+                  className="px-4 py-2 bg-gray-200 rounded"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-[#af08af] text-white px-4 py-2 rounded hover:bg-purple-800"
+                  className="px-4 py-2 bg-purple-600 text-white rounded"
                 >
-                  {formData.id ? 'Update' : 'Create'}
+                  Save
                 </button>
               </div>
             </form>

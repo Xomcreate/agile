@@ -34,19 +34,19 @@ function ContactA() {
           viewport={{ once: false, amount: 0.3 }}
           className="relative z-10 w-full h-full rounded-3xl flex flex-col items-center justify-center px-4 text-center"
         >
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-4">
-            <span className="border-b-4 border-[#af08af] pb-1">Contact</span> Us
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3">
+            <span className="border-b-2 border-[#af08af] pb-1">Contact</span> Us
           </h1>
 
-          <p className="text-white text-base md:text-lg font-medium max-w-2xl mb-6">
+          <p className="text-white text-sm sm:text-base font-normal max-w-xl mb-5">
             We'd love to hear from you! Whether you have a question, feedback, or need assistance, 
             our team is here to help. Reach out anytime — we're just a message away.
           </p>
 
-          <p className="text-base md:text-lg text-white font-medium flex items-center gap-2">
+          <p className="text-sm sm:text-base text-white font-medium flex items-center gap-2">
             <Link
               to="/"
-              className="flex items-center gap-1 hover:border-b-2 hover:border-[#af08af]"
+              className="flex items-center gap-1 hover:border-b hover:border-[#af08af]"
             >
               <FaHome />
               Home

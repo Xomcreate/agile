@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import blogImage from '../assets/boss.jpg'; // Replace with your image
+import blogImage from '../assets/group.jpg';
 import { motion } from 'framer-motion';
 import { FaHome } from 'react-icons/fa';
 
@@ -54,24 +54,22 @@ function BlogA() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="bg-black/50 p-6 md:p-10 rounded-2xl max-w-2xl"
+            className="bg-black/50 p-4 sm:p-6 md:p-8 rounded-2xl max-w-xl"
           >
-            <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
               Explore Our{' '}
-              <span className="border-b-4 border-purple-600">
-                Blog
-              </span>
+              <span className="border-b-2 border-purple-600">Blog</span>
             </h1>
 
-            <p className="text-white text-sm md:text-lg mb-6 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base text-white mb-4 leading-relaxed">
               Get insights, news, and thought-leadership from our team.
               We share stories and strategies that help businesses grow and stay informed.
             </p>
 
-            <div className="flex items-center gap-3 text-white text-base font-medium">
+            <div className="flex items-center gap-2 text-white text-sm font-medium">
               <Link
                 to="/"
-                className="hover:underline hover:text-purple-300 flex items-center gap-2"
+                className="hover:underline hover:text-purple-300 flex items-center gap-1"
               >
                 <FaHome /> Home
               </Link>

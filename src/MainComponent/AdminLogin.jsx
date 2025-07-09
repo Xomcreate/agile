@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function AdminLogin() {
+function AdminLogin({ onSuccess }) {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
@@ -8,63 +8,53 @@ function AdminLogin() {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.username || !formData.password) {
-      setError('Both fields are required');
-      return;
+      return setError('All fields are required');
     }
 
-    // TODO: Authentication logic goes here
-    console.log('Logging in with:', formData);
-    setError('');
+    try {
+      const res = await fetch('http://localhost:5000/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Login failed');
+
+      localStorage.setItem('adminToken', data.token);
+
+      // ✅ Use callback to let Header handle redirect
+      if (onSuccess) onSuccess();
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
-    <div className="w-full">
-      <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-[purple]">
-         Login
-      </h2>
-
-      <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Username Field */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700 mb-1">Username</label>
-          <input
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            placeholder="Enter your username"
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-
-        {/* Password Field */}
-        <div className="flex flex-col">
-          <label className="text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-          />
-        </div>
-
-        {/* Error Message */}
-        {error && (
-          <div className="text-red-600 text-sm font-medium">{error}</div>
-        )}
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-[purple] text-white py-3 rounded-lg hover:bg-purple-800 transition"
-        >
+    <div className="max-w-md mx-auto mt-2">
+      <h2 className="text-2xl font-bold text-center text-[purple]">Admin Login</h2>
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+        <input
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          placeholder="Username"
+          className="w-full p-3 border rounded"
+        />
+        <input
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Password"
+          className="w-full p-3 border rounded"
+        />
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <button type="submit" className="w-full bg-[purple] text-white py-2 rounded">
           Login
         </button>
       </form>

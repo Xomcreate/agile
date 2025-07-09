@@ -52,7 +52,7 @@ function HomeA() {
         >
           {/* Left Text */}
           <div className="w-full lg:w-1/2 mt-8 lg:mt-0 text-center lg:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 sm:mb-6">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-4 sm:mb-6">
               Human Resources Consulting,<br />
               Compliance Audit and Solutions<br />
               <span className="underline decoration-[purple]">Implementation</span>
@@ -64,7 +64,7 @@ function HomeA() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0 w-full text-center">
               <button
                 onClick={() => setShowModal(true)}
-                className="mx-auto sm:mx-0 bg-black  hover:bg-[#af08af]  px-4 py-2 sm:px-5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm"
+                className="mx-auto sm:mx-0 bg-black hover:bg-[#af08af] px-4 py-2 sm:px-5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm"
               >
                 Schedule An Appointment
               </button>
@@ -78,8 +78,7 @@ function HomeA() {
           {/* Right Button */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
             <button
-             
-              className="bg-[purple] hover:bg-[#af08af]  p-4 sm:p-5 rounded-full shadow-lg flex items-center justify-center"
+              className="bg-[purple] hover:bg-[#af08af] p-4 sm:p-5 rounded-full shadow-lg flex items-center justify-center"
             >
               <img src={PlayIcon} alt="Play Video" className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
@@ -112,7 +111,7 @@ function HomeA() {
               </button>
 
               {/* Appointment Form Component */}
-            <Appointment/>
+              <Appointment />
             </motion.div>
           </motion.div>
         )}

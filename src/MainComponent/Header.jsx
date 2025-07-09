@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../assets/agi.jpeg';
@@ -10,7 +10,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showAdminModal, setShowAdminModal] = useState(false);
-  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const isAdminLoggedIn = Boolean(localStorage.getItem('adminToken'));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -18,8 +19,13 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const toggleMenu = () => setIsOpen(o => !o);
-  const closeMenu = () => setIsOpen(false);
+  const handleAdminClick = () => {
+    if (isAdminLoggedIn) {
+      navigate('/mercy');
+    } else {
+      setShowAdminModal(true);
+    }
+  };
 
   const bgClass = scrolled
     ? 'bg-white bg-opacity-80 shadow-md backdrop-blur-sm'
@@ -27,7 +33,7 @@ export default function Header() {
 
   return (
     <>
-      {/* Header Section */}
+      {/* Header */}
       <motion.header
         initial={{ y: -70, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -45,7 +51,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 text-gray-800 font-medium">
+          <nav className="hidden md:flex space-x-6 text-gray-800 text-sm md:text-base font-medium">
             {[
               ['/', 'Home'],
               ['/about', 'About'],
@@ -65,16 +71,16 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* CTA & Admin */}
-          <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center bg-[#af08af] hover:bg-purple-800 text-white px-4 py-2 rounded-lg font-semibold space-x-2 transition-colors">
+          {/* Desktop CTA & Admin */}
+          <div className="hidden md:flex items-center space-x-3 text-sm">
+            <div className="flex items-center bg-[#af08af] hover:bg-purple-800 text-white px-4 py-2 rounded-lg font-semibold space-x-2 transition-colors text-sm">
               <Link to="/contact">Get A Quote</Link>
               <Link to="/" className="hover:underline">&#8594;</Link>
             </div>
 
-            {/* Admin Icon Button */}
+            {/* Admin Icon */}
             <button
-              onClick={() => setShowAdminModal(true)}
+              onClick={handleAdminClick}
               className="p-2 rounded-full opacity-20 hover:opacity-60 transition-opacity"
               title="Admin login"
             >
@@ -84,7 +90,7 @@ export default function Header() {
 
           {/* Mobile Hamburger */}
           <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="text-2xl text-gray-700">
+            <button onClick={() => setIsOpen(o => !o)} className="text-2xl text-gray-700">
               {isOpen ? <FaTimes /> : <FaBars />}
             </button>
           </div>
@@ -101,7 +107,7 @@ export default function Header() {
             exit={{ opacity: 0, scaleY: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             style={{ transformOrigin: 'top' }}
-            className="md:hidden bg-white shadow-md px-6 pt-4 pb-6 text-center text-gray-800 font-medium space-y-4 fixed top-20 w-full z-40"
+            className="md:hidden bg-white shadow-md px-6 pt-4 pb-6 text-center text-gray-800 text-sm font-medium space-y-3 fixed top-20 w-full z-40"
           >
             {[
               ['/', 'Home'],
@@ -115,7 +121,7 @@ export default function Header() {
               <Link
                 key={i}
                 to={path}
-                onClick={closeMenu}
+                onClick={() => setIsOpen(false)}
                 className="block hover:text-[#af08af] relative group transition-colors"
               >
                 {label}
@@ -123,19 +129,11 @@ export default function Header() {
               </Link>
             ))}
 
-            <Link
-              to="/"
-              onClick={closeMenu}
-              className="block text-2xl text-[#af08af] hover:underline transition-colors"
-            >
-              &#8594;
-            </Link>
-
             {/* Mobile Admin Icon */}
             <button
               onClick={() => {
-                closeMenu();
-                setShowAdminModal(true);
+                setIsOpen(false);
+                handleAdminClick();
               }}
               className="inline-flex items-center justify-center p-2 rounded-full opacity-20 hover:opacity-60 transition-opacity mx-auto"
               title="Admin login"
@@ -146,12 +144,12 @@ export default function Header() {
         )}
       </AnimatePresence>
 
-      {/* Spacer below fixed header */}
+      {/* Spacer under fixed header */}
       <div className="h-20 w-full" />
 
-      {/* Admin Login Modal */}
+      {/* Admin Modal */}
       <AnimatePresence>
-        {showAdminModal && (
+        {showAdminModal && !isAdminLoggedIn && (
           <motion.div
             className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}
@@ -159,7 +157,7 @@ export default function Header() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white max-w-md w-full rounded-2xl p-6 relative"
+              className="bg-white max-w-md w-full rounded-2xl p-5 relative text-sm"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
@@ -171,7 +169,12 @@ export default function Header() {
               >
                 ×
               </button>
-              <AdminLogin />
+              <AdminLogin
+                onSuccess={() => {
+                  setShowAdminModal(false);
+                  navigate('/mercy');
+                }}
+              />
             </motion.div>
           </motion.div>
         )}

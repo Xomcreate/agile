@@ -52,7 +52,7 @@ function TestB() {
   return (
     <div className="px-4 md:px-20 py-16 bg-white">
       <motion.h2
-        className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-3"
+        className="text-2xl md:text-3xl font-semibold text-center text-gray-800 mb-3"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -62,7 +62,7 @@ function TestB() {
       </motion.h2>
 
       <motion.p
-        className="text-center text-gray-500 mb-12 text-sm md:text-base"
+        className="text-center text-gray-500 mb-10 text-sm md:text-base"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
@@ -75,17 +75,17 @@ function TestB() {
         {testimonials.map((item, index) => (
           <motion.div
             key={index}
-            className="bg-gray-100 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300"
+            className="bg-gray-100 rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300"
             variants={cardVariant}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.2 }}
             custom={index}
           >
-            <FaQuoteLeft className="text-purple-600 text-2xl mb-4" />
-            <p className="text-gray-700 text-sm leading-relaxed mb-6">“{item.text}”</p>
-            <div className="font-semibold text-gray-900">{item.name}</div>
-            <div className="text-sm text-gray-600">{item.role}</div>
+            <FaQuoteLeft className="text-purple-600 text-xl mb-3" />
+            <p className="text-gray-700 text-sm leading-relaxed mb-5">“{item.text}”</p>
+            <div className="font-semibold text-sm text-gray-900">{item.name}</div>
+            <div className="text-xs text-gray-600">{item.role}</div>
           </motion.div>
         ))}
       </div>

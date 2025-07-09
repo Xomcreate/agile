@@ -1,38 +1,76 @@
 import React, { useState } from 'react';
 
 function BlogD() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [rating, setRating] = useState(0);
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('');
+    setLoading(true);
+
+    try {
+      const res = await fetch('http://localhost:5000/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, rating }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setStatus('✅ Review submitted!');
+      setForm({ name: '', email: '', message: '' });
+      setRating(0);
+    } catch (err) {
+      setStatus('❌ ' + err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16">
-      <div className="bg-purple-100 rounded-2xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-[purple] mb-6 text-center">
+    <div className="max-w-3xl mx-auto px-4 py-14">
+      <div className="bg-purple-100 rounded-2xl shadow-lg p-6 sm:p-8">
+        <h2 className="text-xl sm:text-2xl font-semibold text-purple-700 mb-5 text-center">
           📝 Leave a Review or Comment
         </h2>
 
-        <form className="grid gap-5">
-          {/* Name */}
+        {status && (
+          <p className="text-sm text-center mb-4 text-gray-700">{status}</p>
+        )}
+
+        <form className="grid gap-4" onSubmit={handleSubmit}>
           <input
             type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
             placeholder="Your Name"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+            className="p-2 text-sm border rounded-md"
           />
-
-          {/* Email */}
           <input
             type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
             placeholder="Your Email"
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+            className="p-2 text-sm border rounded-md"
           />
-
-          {/* Star Rating */}
-          <div className="flex items-center gap-2">
-            <span className="text-gray-800 font-medium">Rating:</span>
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-medium">Rating:</span>
             {[1, 2, 3, 4, 5].map((star) => (
               <span
                 key={star}
                 onClick={() => setRating(star)}
-                className={`text-2xl cursor-pointer ${
+                className={`text-lg cursor-pointer ${
                   star <= rating ? 'text-yellow-400' : 'text-gray-300'
                 }`}
               >
@@ -40,20 +78,22 @@ function BlogD() {
               </span>
             ))}
           </div>
-
-          {/* Comment */}
           <textarea
+            name="message"
+            value={form.message}
+            onChange={handleChange}
             placeholder="Write your comment..."
-            rows="5"
-            className="w-full p-3 rounded-lg border border-gray-300 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+            required
+            rows="4"
+            className="p-2 text-sm border rounded-md resize-none"
           ></textarea>
 
-          {/* Submit Button */}
           <button
             type="submit"
-            className="bg-[purple] hover:bg-purple-800 text-white font-semibold py-3 rounded-lg shadow-md transition duration-300"
+            className="bg-purple-700 text-white py-2 text-sm rounded-md hover:bg-purple-800 transition"
+            disabled={loading}
           >
-            Submit Review
+            {loading ? 'Submitting...' : 'Submit Review'}
           </button>
         </form>
       </div>

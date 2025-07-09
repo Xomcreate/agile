@@ -40,16 +40,16 @@ const longWriteup = services.map(s => s.desc).join(' ');
 
 function ServiceB() {
   return (
-    <div className="bg-white w-full py-16 px-4 sm:px-8 md:px-16 lg:px-24">
+    <div className="bg-white w-full py-12 px-4 sm:px-6 md:px-12 lg:px-20">
       {/* Heading */}
-      <div className="mb-10 text-center md:text-left">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 inline-block relative">
-          <span className="border-b-4 border-[#af08af] pb-2">Services</span> We Offer
+      <div className="mb-8 text-center md:text-left">
+        <h1 className="text-2xl sm:text-3xl md:text-3xl font-bold text-gray-900">
+          <span className="border-b-2 border-[#af08af] pb-1">Services</span> We Offer
         </h1>
       </div>
 
       {/* Paragraph */}
-      <div className="text-gray-700 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-6xl mx-auto md:mx-0">
+      <div className="text-gray-700 text-sm sm:text-base md:text-base font-normal leading-relaxed max-w-5xl mx-auto md:mx-0">
         {longWriteup}
       </div>
     </div>

@@ -8,10 +8,9 @@ function AboutC() {
     }
   `;
 
-  // Custom style for outlined purple text
   const outlinedText = {
     color: 'transparent',
-    WebkitTextStroke: '2px #6b21a8', // Thicker purple border
+    WebkitTextStroke: '2px #6b21a8',
     wordSpacing: '5px',
   };
 
@@ -33,17 +32,17 @@ function AboutC() {
           }}
         >
           {/* First duplicate */}
-          <div className="flex gap-10 text-5xl sm:text-6xl md:text-7xl font-extrabold font-serif">
+          <div className="flex gap-10 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif">
             <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits, </span>
+            <span style={filledText}>Sponsor Compliance And Audits,</span>
             <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits, </span>
+            <span style={filledText}>Sponsor Compliance And Audits,</span>
           </div>
 
           {/* Second duplicate */}
-          <div className="flex gap-10 text-5xl sm:text-6xl md:text-7xl font-extrabold font-serif">
+          <div className="flex gap-10 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif">
             <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits,   </span>
+            <span style={filledText}>Sponsor Compliance And Audits,</span>
             <span style={outlinedText}>HR Consulting,</span>
             <span style={filledText}>Sponsor Compliance And Audits</span>
           </div>

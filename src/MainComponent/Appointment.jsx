@@ -1,103 +1,110 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function Appointment() {
+export default function Appointment() {
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    service: '',
+    date: '',
+    time: '',
+    notes: '',
+  });
+
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage('');
+
+    try {
+      const res = await fetch('http://localhost:5000/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Booking failed');
+      }
+
+      setMessage('✅ Appointment booked successfully!');
+      setForm({
+        fullName: '',
+        email: '',
+        phone: '',
+        service: '',
+        date: '',
+        time: '',
+        notes: '',
+      });
+    } catch (err) {
+      console.error('❌ Booking failed:', err.message);
+      setMessage(`❌ ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full max-h-[85vh] overflow-y-auto">
       <h2 className="text-xl sm:text-2xl font-bold text-center text-[purple] mb-4">
         Schedule an Appointment
       </h2>
 
-      <form className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 sm:px-2">
-        {/* Full Name */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Full Name</label>
-          <input
-            type="text"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[purple]"
-            placeholder="John Doe"
-            required
-          />
-        </div>
+      {message && (
+        <p
+          className={`text-center mb-4 ${
+            message.startsWith('✅') ? 'text-green-600' : 'text-red-500'
+          }`}
+        >
+          {message}
+        </p>
+      )}
 
-        {/* Email */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Email Address</label>
-          <input
-            type="email"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[purple]"
-            placeholder="example@email.com"
-            required
-          />
-        </div>
+      <form
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 sm:px-2"
+        onSubmit={handleSubmit}
+      >
+        <input name="fullName" value={form.fullName} onChange={handleChange} placeholder="Full Name" required className="p-2 border border-gray-300 rounded-lg" />
+        <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" required className="p-2 border border-gray-300 rounded-lg" />
+        <input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="Phone" required className="p-2 border border-gray-300 rounded-lg" />
 
-        {/* Phone */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Phone Number</label>
-          <input
-            type="tel"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[purple]"
-            placeholder="+234 801 234 5678"
-            required
-          />
-        </div>
+        <select name="service" value={form.service} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg">
+          <option value="">Select a service</option>
+           <option value="consulting">HR Consulting</option>
+           <option value="design">Solution Design & Implementation</option>
+          <option value="outsourcing">HR Outsourcing</option>
+          <option value="strategies">Developing HR Strategies</option>
+          <option value="policies">Developing HR Policies</option>
+          <option value="planning">Manpower Planning,Recruitment & planning</option>
+          <option value="structure">Organisational Design & Structure</option>
+        </select>
 
-        {/* Service Type */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Service Type</label>
-          <select
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          >
-            <option value="">Select a service</option>
-            <option value="hr-consulting">HR Consulting</option>
-            <option value="compliance">Compliance Audit</option>
-            <option value="training">Workforce Training</option>
-            <option value="recruitment">Recruitment Services</option>
-          </select>
-        </div>
+        <input name="date" type="date" value={form.date} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg" />
+        <input name="time" type="time" value={form.time} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg" />
 
-        {/* Date */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Preferred Date</label>
-          <input
-            type="date"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
+        <textarea name="notes" value={form.notes} onChange={handleChange} placeholder="Additional Notes" rows="3" className="md:col-span-2 p-2 border border-gray-300 rounded-lg" />
 
-        {/* Time */}
-        <div className="flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Preferred Time</label>
-          <input
-            type="time"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
-
-        {/* Notes */}
-        <div className="md:col-span-2 flex flex-col">
-          <label className="mb-1 text-xs sm:text-sm text-gray-700">Additional Notes</label>
-          <textarea
-            rows="2"
-            className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            placeholder="Tell us more about your needs..."
-          />
-        </div>
-
-        {/* Submit */}
-        <div className="md:col-span-2">
-          <button
-            type="submit"
-            className="w-full bg-[purple] text-white py-2 rounded-lg hover:bg-[purple] transition-all text-sm"
-          >
-            Book Appointment
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="md:col-span-2 w-full bg-[purple] text-white py-2 rounded-lg hover:bg-purple-700 transition-all text-sm"
+          disabled={loading}
+        >
+          {loading ? 'Booking...' : 'Book Appointment'}
+        </button>
       </form>
     </div>
   );
 }
-
-export default Appointment;
