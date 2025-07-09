@@ -11,7 +11,6 @@ import {
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-// Animation variant
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i = 1) => ({
@@ -33,10 +32,8 @@ const Footer = () => (
     viewport={{ once: true }}
     transition={{ duration: 1 }}
   >
-    {/* Main Footer Grid */}
     <div className="max-w-screen-xl mx-auto flex flex-wrap justify-center md:justify-between gap-12 pb-12">
       
-      {/* ─── Logo + Newsletter ───────────────────────── */}
       <motion.div
         className="flex-1 min-w-[250px] max-w-[300px]"
         variants={fadeInUp}
@@ -78,7 +75,6 @@ const Footer = () => (
         </div>
       </motion.div>
 
-      {/* ─── Company Links ─────────────────────────── */}
       <motion.div
         className="flex-1 min-w-[180px] max-w-[220px] md:text-left text-center"
         variants={fadeInUp}
@@ -93,11 +89,10 @@ const Footer = () => (
           <li><a href="/service" className="hover:underline">Services</a></li>
           <li><a href="/test" className="hover:underline">Testimonials</a></li>
           <li><a href="/blog" className="hover:underline">Blog</a></li>
-         <li><a href="/contact" className="hover:underline">Contact</a></li>
+          <li><a href="/contact" className="hover:underline">Contact</a></li>
         </ul>
       </motion.div>
 
-      {/* ─── Services Links ────────────────────────── */}
       <motion.div
         className="flex-1 min-w-[180px] max-w-[220px] md:text-left text-center"
         variants={fadeInUp}
@@ -116,7 +111,6 @@ const Footer = () => (
         </ul>
       </motion.div>
 
-      {/* ─── Contact Info ──────────────────────────── */}
       <motion.div
         className="flex-1 min-w-[250px] max-w-[300px] md:text-left text-center"
         variants={fadeInUp}
@@ -150,7 +144,6 @@ const Footer = () => (
           <p>info@agile360pmc.com</p>
         </div>
 
-        {/* Social Icons */}
         <div className="flex gap-4 mt-4 justify-center md:justify-start">
           <a href="https://www.facebook.com/share/1FVpy2jaZP/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
             <FaFacebookF />
@@ -165,10 +158,8 @@ const Footer = () => (
       </motion.div>
     </div>
 
-    {/* Bottom Divider */}
     <hr className="border-t border-white mx-6 md:mx-20" />
 
-    {/* Bottom Text */}
     <motion.div
       className="max-w-screen-xl mx-auto px-4 py-6 text-sm text-gray-300 flex justify-center"
       variants={fadeInUp}
@@ -179,11 +170,17 @@ const Footer = () => (
     >
       <p className="text-center">
         © 2025 <span className="text-white font-semibold">Agile360PMC</span>. Designed &amp; Developed by{' '}
-        <span className="text-white font-semibold">Xom-Codes</span>
+        <a
+          href="https://web.facebook.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white font-semibold hover:underline"
+        >
+          Xom-Codes
+        </a>
       </p>
     </motion.div>
 
-    {/* Scroll to Top Button */}
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className="fixed bottom-6 right-6 border-2 border-orange-500 text-orange-500 p-3 rounded-full hover:bg-orange-500 hover:text-white transition"

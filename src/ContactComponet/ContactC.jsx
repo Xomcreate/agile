@@ -2,7 +2,7 @@ import React from 'react';
 
 function ContactC() {
   return (
-    <div className="bg-[red] h-[60vh] w-full rounded-xl overflow-hidden shadow-lg">
+    <div className="bg-[wheat] h-[60vh] w-full rounded-xl overflow-hidden shadow-lg">
       <iframe
         title="Google Map"
         className="w-full h-full border-0"

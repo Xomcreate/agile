@@ -68,6 +68,7 @@ function Booking() {
             </p>
             <p className="text-sm"><FaEnvelope className="inline" /> {appt.email}</p>
             <p className="text-sm"><FaPhone className="inline" /> {appt.phone}</p>
+            <p className="text-sm"><strong>Service:</strong> {appt.service}</p>
             <p className="text-sm flex items-center gap-2">
               <FaCalendarAlt /> {appt.date} <FaClock className="ml-2" /> {appt.time}
             </p>

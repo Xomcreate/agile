@@ -34,6 +34,7 @@ function Message() {
 
   const handleDelete = (id) => {
     setMessages((prev) => prev.filter((msg) => msg._id !== id));
+    // Optionally, send a DELETE request to the server here
   };
 
   return (
@@ -62,6 +63,10 @@ function Message() {
                 </button>
               </div>
               <p className="text-sm text-gray-500 mb-2"><strong>Email:</strong> {msg.email}</p>
+              <p className="text-sm text-gray-500 mb-2"><strong>Service:</strong> {msg.subject || 'Not specified'}</p>
+              {msg.phone && (
+                <p className="text-sm text-gray-500 mb-2"><strong>Phone:</strong> {msg.phone}</p>
+              )}
               <p className="text-gray-700 mb-2">{msg.message}</p>
               <p className="text-xs text-gray-400">
                 📅 {new Date(msg.createdAt).toLocaleDateString()}
