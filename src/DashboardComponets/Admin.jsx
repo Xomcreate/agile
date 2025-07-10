@@ -6,7 +6,7 @@ import Upload from '../MenuComponent/Upload';
 import Message from '../MenuComponent/Message';
 import Booking from '../MenuComponent/Booking';
 import Review from '../MenuComponent/Review';
-import { useNavigate } from 'react-router-dom'; // ✅ navigate fallback
+import { useNavigate } from 'react-router-dom';
 
 function Admin() {
   const [activePage, setActivePage] = useState('dashboard');
@@ -27,7 +27,7 @@ function Admin() {
           }
         })
         .then(res => {
-          setMessage(res.data.message); // optional
+          setMessage(res.data.message);
         })
         .catch(err => {
           console.error(err);
@@ -58,7 +58,7 @@ function Admin() {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    navigate('/'); // Go to homepage
+    navigate('/');
   };
 
   return (
@@ -69,7 +69,14 @@ function Admin() {
         <select
           className="w-full bg-white text-black rounded px-3 py-2"
           value={activePage}
-          onChange={(e) => setActivePage(e.target.value)}
+          onChange={(e) => {
+            const value = e.target.value;
+            if (value === 'logout') {
+              handleLogout();
+            } else {
+              setActivePage(value);
+            }
+          }}
         >
           <option value="dashboard">🏠 Dashboard</option>
           <option value="blogs">📰 Blog Manager</option>
@@ -77,6 +84,7 @@ function Admin() {
           <option value="contacts">📥 Contact Messages</option>
           <option value="book">📕 Booking Messages</option>
           <option value="review">💬 Review Messages</option>
+          <option value="logout">🚪 Logout</option>
         </select>
       </div>
 
