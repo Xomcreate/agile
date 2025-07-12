@@ -20,6 +20,7 @@ import Admin from './DashboardComponets/Admin';
 import AdminLogin from './MainComponent/AdminLogin';
 import ProtectedRoute from './ProtectedRoute';
 import NotFound from './MainComponent/NotFound';
+import Career from './MainComponent/Career';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/service" element={<Services />} />
         <Route path="/test" element={<Testimonial />} />
         <Route path="/blog" element={<Blog />} />
+          <Route path="/car" element={<Career />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         
         {/* 🔐 Protected Route */}

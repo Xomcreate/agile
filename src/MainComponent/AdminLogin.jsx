@@ -1,42 +1,43 @@
+// src/components/AdminLogin.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function AdminLogin({ onSuccess }) {
+export default function AdminLogin({ onSuccess }) {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = e =>
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-
+    setError('');
     if (!formData.username || !formData.password) {
       return setError('All fields are required');
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/admin-login', {
+      const res = await fetch('https://agibackend.onrender.com/api/admin-login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Login failed');
 
       localStorage.setItem('adminToken', data.token);
 
-      // ✅ Use callback to let Header handle redirect
       if (onSuccess) onSuccess();
+      else navigate('/admin');   // fallback if no prop passed
     } catch (err) {
       setError(err.message);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto mt-2">
-      <h2 className="text-2xl font-bold text-center text-[purple]">Admin Login</h2>
+    <div className="max-w-md mx-auto mt-20">
+      <h2 className="text-2xl font-bold text-center text-purple-700">Admin Login</h2>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         <input
           name="username"
@@ -53,13 +54,11 @@ function AdminLogin({ onSuccess }) {
           placeholder="Password"
           className="w-full p-3 border rounded"
         />
-        {error && <div className="text-red-500 text-sm">{error}</div>}
-        <button type="submit" className="w-full bg-[purple] text-white py-2 rounded">
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <button type="submit" className="w-full bg-purple-600 text-white py-2 rounded">
           Login
         </button>
       </form>
     </div>
   );
 }
-
-export default AdminLogin;

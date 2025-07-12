@@ -7,6 +7,7 @@ import Message from '../MenuComponent/Message';
 import Booking from '../MenuComponent/Booking';
 import Review from '../MenuComponent/Review';
 import { useNavigate } from 'react-router-dom';
+import Carr from '../MenuComponent/Carr';
 
 function Admin() {
   const [activePage, setActivePage] = useState('dashboard');
@@ -21,7 +22,7 @@ function Admin() {
       navigate('/not-found');
     } else {
       axios
-        .get('http://localhost:5000/api/admin-dashboard', {
+        .get('https://agibackend.onrender.com/api/admin-dashboard', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -51,6 +52,8 @@ function Admin() {
         return <Booking />;
       case 'review':
         return <Review />;
+          case 'career':
+        return <Carr/>;
       default:
         return <div>Select a section from the menu.</div>;
     }
@@ -84,6 +87,7 @@ function Admin() {
           <option value="contacts">📥 Contact Messages</option>
           <option value="book">📕 Booking Messages</option>
           <option value="review">💬 Review Messages</option>
+          <option value="career">💬 Career Upload</option>
           <option value="logout">🚪 Logout</option>
         </select>
       </div>
@@ -92,20 +96,17 @@ function Admin() {
       <div className="hidden md:flex md:flex-col w-60 bg-[#af08af] text-white h-screen p-6">
         <h2 className="text-xl font-bold mb-8">AGILE360 Admin</h2>
         <nav className="flex flex-col space-y-4">
-          {[
-            { key: 'dashboard', label: '🏠 Dashboard' },
+          {[{ key: 'dashboard', label: '🏠 Dashboard' },
             { key: 'blogs', label: '📰 Blog Manager' },
             { key: 'works', label: '📸 Upload Works' },
             { key: 'contacts', label: '📥 Contact Messages' },
             { key: 'book', label: '📕 Booking Messages' },
-            { key: 'review', label: '💬 Review Messages' },
-          ].map(({ key, label }) => (
+             { key: 'career', label: '🏢Career Upload' },
+            { key: 'review', label: '💬 Review Messages' }].map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setActivePage(key)}
-              className={`text-left transition hover:text-yellow-300 ${
-                activePage === key ? 'text-yellow-300 font-semibold' : ''
-              }`}
+              className={`text-left transition hover:text-yellow-300 ${activePage === key ? 'text-yellow-300 font-semibold' : ''}`}
             >
               {label}
             </button>

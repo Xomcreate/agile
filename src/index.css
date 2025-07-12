@@ -6,3 +6,9 @@
   border-bottom-left-radius: 9999px;
   border-bottom-right-radius: 9999px;
 }
+@layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+}
+

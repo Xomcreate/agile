@@ -1,11 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import img from '../assets/boss.jpg'; // Replace with your actual image path
+import img from '../assets/boss.jpg';
 
-function HomeC() {
+export default function HomeC() {
   return (
-    <div className="bg-white py-10 px-4 md:px-8 lg:px-16">
-      <div className="bg-[#af08af] rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center p-6 md:p-10">
+    <div className="relative w-full overflow-x-hidden bg-white py-10 px-4 md:px-8 lg:px-16">
+      <div className="bg-[#af08af] rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center p-6 md:p-10 max-w-7xl mx-auto">
         
         {/* ✅ Animated Image */}
         <motion.div
@@ -37,12 +37,12 @@ function HomeC() {
           </div>
 
           <p className="text-sm md:text-base leading-relaxed text-justify">
-            "Agile360 PMC is a project management consulting service specializing in Human Resources consulting practice, HR Outsourcing and Sponsor Compliance audits. We work in partnership with our clients to develop and implement strategic and tactical solutions across all aspects of Human Resources Management and Sponsor Compliance. We partner with all shapes and sizes of organizations from start-ups to global corporates; we are agile and creative in how we deliver a great client experience."
+            "Agile360 PMC is a project management consulting service specializing in Human Resources consulting practice, HR Outsourcing and Sponsor Compliance audits.
+            We work in partnership with our clients to develop and implement strategic and tactical solutions across all aspects of Human Resources Management and Sponsor Compliance.
+            We partner with all shapes and sizes of organizations from start-ups to global corporates; we are agile and creative in how we deliver a great client experience."
           </p>
         </motion.div>
       </div>
     </div>
   );
 }
-
-export default HomeC;

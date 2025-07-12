@@ -1,4 +1,3 @@
-// BlogB.jsx
 import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaBullhorn } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -24,11 +23,11 @@ const fadeUp = {
   },
 };
 
-function BlogB() {
+export default function BlogB() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/blogs')
+    fetch('https://agibackend.onrender.com/api/blogs')
       .then((res) => res.json())
       .then((data) => {
         const published = data.filter(
@@ -55,7 +54,7 @@ function BlogB() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       >
         {blogs.map(({ _id, date, title, description, thumbnail }) => (
           <motion.div
@@ -64,17 +63,21 @@ function BlogB() {
             variants={fadeUp}
           >
             <img
-              src={`http://localhost:5000${thumbnail}`}
+              src={thumbnail}
               alt={title}
               className="w-full h-44 object-cover rounded-t-xl"
             />
             <div className="p-4">
               <div className="flex items-center gap-2 mb-3">
                 <FaCalendarAlt className="text-purple-500 text-lg" />
-                <time className="text-purple-700 text-sm font-semibold">{date}</time>
+                <time className="text-purple-700 text-sm font-semibold">
+                  {new Date(date).toLocaleDateString()}
+                </time>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-              <p className="text-sm text-gray-700">{description.slice(0, 100)}...</p>
+              <p className="text-sm text-gray-700">
+                {description?.slice(0, 100)}...
+              </p>
             </div>
           </motion.div>
         ))}
@@ -88,5 +91,3 @@ function BlogB() {
     </div>
   );
 }
-
-export default BlogB;

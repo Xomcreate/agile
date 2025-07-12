@@ -27,7 +27,7 @@ export default function Appointment() {
     setMessage('');
 
     try {
-      const res = await fetch('http://localhost:5000/api/appointments', {
+      const res = await fetch('https://agibackend.onrender.com/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
@@ -77,25 +77,75 @@ export default function Appointment() {
         className="grid grid-cols-1 md:grid-cols-2 gap-4 px-1 sm:px-2"
         onSubmit={handleSubmit}
       >
-        <input name="fullName" value={form.fullName} onChange={handleChange} placeholder="Full Name" required className="p-2 border border-gray-300 rounded-lg" />
-        <input name="email" type="email" value={form.email} onChange={handleChange} placeholder="Email" required className="p-2 border border-gray-300 rounded-lg" />
-        <input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="Phone" required className="p-2 border border-gray-300 rounded-lg" />
+        <input
+          name="fullName"
+          value={form.fullName}
+          onChange={handleChange}
+          placeholder="Full Name"
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        />
+        <input
+          name="email"
+          type="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        />
+        <input
+          name="phone"
+          type="tel"
+          value={form.phone}
+          onChange={handleChange}
+          placeholder="Phone"
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        />
 
-        <select name="service" value={form.service} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg">
+        <select
+          name="service"
+          value={form.service}
+          onChange={handleChange}
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        >
           <option value="">Select a service</option>
-           <option value="consulting">HR Consulting</option>
-           <option value="design">Solution Design & Implementation</option>
+          <option value="consulting">HR Consulting</option>
+          <option value="design">Solution Design & Implementation</option>
           <option value="outsourcing">HR Outsourcing</option>
           <option value="strategies">Developing HR Strategies</option>
           <option value="policies">Developing HR Policies</option>
-          <option value="planning">Manpower Planning,Recruitment & planning</option>
+          <option value="planning">Manpower Planning, Recruitment & Planning</option>
           <option value="structure">Organisational Design & Structure</option>
         </select>
 
-        <input name="date" type="date" value={form.date} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg" />
-        <input name="time" type="time" value={form.time} onChange={handleChange} required className="p-2 border border-gray-300 rounded-lg" />
+        <input
+          name="date"
+          type="date"
+          value={form.date}
+          onChange={handleChange}
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        />
+        <input
+          name="time"
+          type="time"
+          value={form.time}
+          onChange={handleChange}
+          required
+          className="p-2 border border-gray-300 rounded-lg"
+        />
 
-        <textarea name="notes" value={form.notes} onChange={handleChange} placeholder="Additional Notes" rows="3" className="md:col-span-2 p-2 border border-gray-300 rounded-lg" />
+        <textarea
+          name="notes"
+          value={form.notes}
+          onChange={handleChange}
+          placeholder="Additional Notes"
+          rows="3"
+          className="md:col-span-2 p-2 border border-gray-300 rounded-lg"
+        />
 
         <button
           type="submit"

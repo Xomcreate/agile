@@ -89,6 +89,7 @@ const Footer = () => (
           <li><a href="/service" className="hover:underline">Services</a></li>
           <li><a href="/test" className="hover:underline">Testimonials</a></li>
           <li><a href="/blog" className="hover:underline">Blog</a></li>
+            <li><a href="/car" className="hover:underline">Career</a></li>
           <li><a href="/contact" className="hover:underline">Contact</a></li>
         </ul>
       </motion.div>
@@ -141,7 +142,7 @@ const Footer = () => (
 
         <div className="flex items-center gap-3 text-sm mb-4 justify-center md:justify-start">
           <FaEnvelope className="text-white" />
-          <p>info@agile360pmc.com</p>
+          <p>Contact@agile360-pmc.com</p>
         </div>
 
         <div className="flex gap-4 mt-4 justify-center md:justify-start">

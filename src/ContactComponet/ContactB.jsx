@@ -9,7 +9,6 @@ export default function ContactB() {
   const [form, setForm] = useState({
     name: '', email: '', subject: '', phone: '', message: '', terms: false
   });
-
   const [status, setStatus] = useState({
     loading: false, success: null, error: null
   });
@@ -27,7 +26,7 @@ export default function ContactB() {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('https://agibackend.onrender.com/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form)
@@ -35,17 +34,13 @@ export default function ContactB() {
 
       const text = await res.text();
       let data;
-
       try {
         data = JSON.parse(text);
       } catch {
         throw new Error('Unexpected server response. Please try again.');
       }
 
-      if (!res.ok) {
-        throw new Error(data.error || 'Something went wrong');
-      }
-
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
       setStatus({ loading: false, success: data.message, error: null });
       setForm({ name: '', email: '', subject: '', phone: '', message: '', terms: false });
     } catch (err) {
@@ -54,7 +49,7 @@ export default function ContactB() {
   };
 
   return (
-    <section className="w-full bg-white py-12 px-4 md:px-12">
+    <div className="w-screen overflow-hidden bg-white py-12 px-4 md:px-12">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
 
         {/* LEFT PANEL */}
@@ -67,16 +62,17 @@ export default function ContactB() {
         >
           <p className="text-xs font-medium text-[#af08af] uppercase">Get In Touch</p>
           <h2 className="text-xl md:text-2xl font-bold text-[purple] leading-snug">
-            Trusted By the Genius<br />People with Agile
+            Let's help you redefine<br />
+            excellence in business
           </h2>
           <p className="text-sm text-gray-600">
-            Globally engage cross-media leadership skills before cross-media innovation forward.
+            With Our Tailored Made Implementable Solutions.
           </p>
 
-          <div className="bg-gray-50 p-5 rounded-xl">
+          <div className="bg-gray-50 p-5 rounded-xl space-y-4">
             <div className="flex items-center gap-3 pb-4 border-b border-dashed border-gray-300">
               <div className="bg-white p-2 rounded-full shadow">
-                <FaPhoneAlt className="text-black text-base" />
+                <FaPhoneAlt className="text-black" />
               </div>
               <div>
                 <p className="text-xs text-gray-600">Call us Anytime</p>
@@ -85,16 +81,16 @@ export default function ContactB() {
             </div>
             <div className="flex items-center gap-3 py-4 border-b border-dashed border-gray-300">
               <div className="bg-white p-2 rounded-full shadow">
-                <FaEnvelope className="text-black text-base" />
+                <FaEnvelope className="text-black" />
               </div>
               <div>
                 <p className="text-xs text-gray-600">E‑Mail us</p>
-                <p className="mt-1 font-semibold text-sm">info@agile360pmc.com</p>
+                <p className="mt-1 font-semibold text-sm">Contact@agile360-pmc.com</p>
               </div>
             </div>
             <div className="flex items-start gap-3 pt-4">
               <div className="bg-white p-2 rounded-full shadow">
-                <FaMapMarkerAlt className="text-black text-base" />
+                <FaMapMarkerAlt className="text-black" />
               </div>
               <div>
                 <p className="text-xs text-gray-600">Our Locations</p>
@@ -117,7 +113,7 @@ export default function ContactB() {
         >
           <p className="text-xs font-medium text-[#af08af] uppercase">Contact Us</p>
           <h3 className="relative text-lg font-bold text-[purple] mb-6">
-            Get In Touch With Agile
+            Get In Touch With Agile360
             <span className="absolute left-0 -bottom-1 w-16 h-1 bg-[#af08af] rounded-full" />
           </h3>
 
@@ -156,12 +152,12 @@ export default function ContactB() {
                 >
                   <option value="">Which Service</option>
                   <option value="consulting">HR Consulting</option>
-               <option value="design">Solution Design & Implementation</option>
-                 <option value="outsourcing">HR Outsourcing</option>
+                  <option value="design">Solution Design & Implementation</option>
+                  <option value="outsourcing">HR Outsourcing</option>
                   <option value="strategies">Developing HR Strategies</option>
-                <option value="policies">Developing HR Policies</option>
-              <option value="planning">Manpower Planning,Recruitment & planning</option>
-               <option value="structure">Organisational Design & Structure</option>
+                  <option value="policies">Developing HR Policies</option>
+                  <option value="planning">Manpower Planning, Recruitment & Planning</option>
+                  <option value="structure">Organisational Design & Structure</option>
                 </select>
                 <FaChevronDown className="absolute top-2.5 right-3 text-gray-400 text-sm" />
               </div>
@@ -221,6 +217,6 @@ export default function ContactB() {
           </form>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 }

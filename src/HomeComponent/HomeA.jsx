@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
 import PlayIcon from '../assets/agi.jpeg';
 import bg1 from '../assets/hom1.jpg';
-import bg2 from '../assets/hom2.jpg';
-import bg3 from '../assets/hom4.jpg';
+import bg2 from '../assets/white1.jpg';
+import bg3 from '../assets/white2.jpg';
 import Appointment from '../MainComponent/Appointment';
 
 const bgImages = [bg1, bg2, bg3];
 
-function HomeA() {
+export default function HomeA() {
   const [currentBg, setCurrentBg] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
@@ -21,10 +20,15 @@ function HomeA() {
   }, []);
 
   return (
-    <>
+    <div className="relative w-full overflow-x-hidden">
       <section
-        className="relative text-white rounded-b-3xl mx-4 sm:mx-6 md:mx-12 lg:mx-[60px]
-        mt-5 overflow-hidden h-auto sm:h-[60vh] md:h-[70vh] lg:h-[80vh]"
+        className="
+          relative text-white rounded-b-3xl
+          mx-auto max-w-[1440px]
+          mt-5 overflow-hidden
+          h-auto sm:h-[60vh] md:h-[70vh] lg:h-[80vh]
+          px-4 sm:px-6 md:px-8 lg:px-12
+        "
       >
         {/* Background Slideshow */}
         <AnimatePresence mode="wait">
@@ -34,7 +38,7 @@ function HomeA() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 bg-cover bg-center z-0"
+            className="absolute inset-0 bg-cover bg-center z-0 w-full"
             style={{ backgroundImage: `url(${bgImages[currentBg]})` }}
           />
         </AnimatePresence>
@@ -43,14 +47,8 @@ function HomeA() {
         <div className="absolute inset-0 bg-black/40 z-10" />
 
         {/* Content */}
-        <div
-          className="relative z-20 max-w-7xl mx-auto
-          flex flex-col-reverse lg:flex-row
-          items-center lg:items-start
-          py-12 sm:py-16 lg:py-20
-          px-4 sm:px-6 md:px-8 lg:px-12 h-full"
-        >
-          {/* Left Text */}
+        <div className="relative z-20 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center lg:items-start py-12 sm:py-16 lg:py-20 h-full">
+          {/* Left Content */}
           <div className="w-full lg:w-1/2 mt-8 lg:mt-0 text-center lg:text-left">
             <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-4 sm:mb-6">
               Human Resources Consulting,<br />
@@ -75,7 +73,7 @@ function HomeA() {
             </div>
           </div>
 
-          {/* Right Button */}
+          {/* Right Icon */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
             <button
               className="bg-[purple] hover:bg-[#af08af] p-4 sm:p-5 rounded-full shadow-lg flex items-center justify-center"
@@ -86,7 +84,7 @@ function HomeA() {
         </div>
       </section>
 
-      {/* Modal with Appointment Component */}
+      {/* Modal */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -96,28 +94,23 @@ function HomeA() {
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 overflow-y-auto relative"
+              className="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 overflow-y-auto relative max-h-[90vh]"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Close Button */}
               <button
                 onClick={() => setShowModal(false)}
                 className="absolute top-3 right-3 text-gray-600 hover:text-red-500 text-2xl font-bold"
               >
                 ×
               </button>
-
-              {/* Appointment Form Component */}
               <Appointment />
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
-
-export default HomeA;

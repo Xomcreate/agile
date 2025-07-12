@@ -15,7 +15,7 @@ function Booking() {
 
   const fetchAppointments = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/appointments');
+      const res = await fetch('https://agibackend.onrender.com/api/appointments');
       if (!res.ok) throw new Error('Failed to fetch appointments');
       const data = await res.json();
       setAppointments(data);
@@ -31,7 +31,7 @@ function Booking() {
     if (!confirm) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/appointments/${id}`, {
+      const res = await fetch(`https://agibackend.onrender.com/api/appointments/${id}`, {
         method: 'DELETE',
       });
 

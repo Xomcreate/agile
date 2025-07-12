@@ -29,14 +29,14 @@ const zoomIn = {
   }
 };
 
-function AboutA() {
+export default function AboutA() {
   return (
-    <div className="grid min-h-[80vh] w-full">
+    <div className="w-screen overflow-hidden">
       <motion.div
         variants={zoomIn}
         initial="hidden"
         animate="visible"
-        className="mx-4 md:mx-24 my-6 grid rounded-3xl bg-cover bg-center relative overflow-hidden shadow-lg"
+        className="mx-auto max-w-7xl my-6 rounded-3xl bg-cover bg-center relative overflow-hidden shadow-lg min-h-[80vh] flex items-center justify-center"
         style={{ backgroundImage: `url(${aboutImage})` }}
       >
         <motion.div
@@ -44,13 +44,13 @@ function AboutA() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.3 }}
-          className="relative z-10 w-full h-full rounded-3xl flex items-center justify-center px-4 text-center"
+          className="relative z-10 w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8 lg:px-24"
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 1 }}
-            className="bg-black/60 p-6 sm:p-10 rounded-2xl max-w-3xl text-white"
+            className="bg-black/60 p-6 sm:p-10 rounded-2xl max-w-3xl text-white text-center"
           >
             <h1 className="text-xl md:text-3xl font-bold mb-3">
               Who <span className="border-b-4 border-purple-600 pb-1">We Are</span>
@@ -76,5 +76,3 @@ function AboutA() {
     </div>
   );
 }
-
-export default AboutA;

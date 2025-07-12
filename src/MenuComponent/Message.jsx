@@ -14,7 +14,7 @@ function Message() {
           return;
         }
 
-        const res = await fetch('/api/admin/messages', {
+        const res = await fetch('https://agibackend.onrender.com/api/admin/messages', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,9 +32,20 @@ function Message() {
     fetchMessages();
   }, []);
 
-  const handleDelete = (id) => {
-    setMessages((prev) => prev.filter((msg) => msg._id !== id));
-    // Optionally, send a DELETE request to the server here
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem('adminToken');
+      await fetch(`https://agibackend.onrender.com/api/admin/messages/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
+    } catch (err) {
+      console.error('Failed to delete message:', err);
+    }
   };
 
   return (

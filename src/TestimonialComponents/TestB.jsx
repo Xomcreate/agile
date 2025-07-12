@@ -35,7 +35,7 @@ const testimonials = [
   },
 ];
 
-// Animation config for each card
+// Animation variant
 const cardVariant = {
   hidden: { opacity: 0, y: 50 },
   visible: (i) => ({
@@ -43,54 +43,54 @@ const cardVariant = {
     y: 0,
     transition: {
       duration: 0.6,
-      delay: i * 0.2, // staggered delay per card
+      delay: i * 0.2,
     },
   }),
 };
 
-function TestB() {
+export default function TestB() {
   return (
-    <div className="px-4 md:px-20 py-16 bg-white">
-      <motion.h2
-        className="text-2xl md:text-3xl font-semibold text-center text-gray-800 mb-3"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        What Our Clients Say
-      </motion.h2>
+    <div className="w-screen overflow-hidden">
+      <div className="px-4 md:px-20 py-16 bg-white">
+        <motion.h2
+          className="text-2xl md:text-3xl font-semibold text-center text-purple-700 mb-3"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          What Our Clients Say
+        </motion.h2>
 
-      <motion.p
-        className="text-center text-gray-500 mb-10 text-sm md:text-base"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        viewport={{ once: true }}
-      >
-        Real stories from business owners, managers, and decision-makers across the UK and beyond.
-      </motion.p>
+        <motion.p
+          className="text-center text-purple-500 mb-10 text-sm md:text-base"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+        >
+          Real stories from business owners, managers, and decision-makers across the UK and beyond.
+        </motion.p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {testimonials.map((item, index) => (
-          <motion.div
-            key={index}
-            className="bg-gray-100 rounded-xl p-5 shadow-md hover:shadow-xl transition-all duration-300"
-            variants={cardVariant}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
-            custom={index}
-          >
-            <FaQuoteLeft className="text-purple-600 text-xl mb-3" />
-            <p className="text-gray-700 text-sm leading-relaxed mb-5">“{item.text}”</p>
-            <div className="font-semibold text-sm text-gray-900">{item.name}</div>
-            <div className="text-xs text-gray-600">{item.role}</div>
-          </motion.div>
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {testimonials.map((item, index) => (
+            <motion.div
+              key={index}
+              className="bg-purple-50 rounded-xl p-5 shadow-md hover:shadow-lg transition-all duration-300"
+              variants={cardVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.2 }}
+              custom={index}
+            >
+              <FaQuoteLeft className="text-purple-700 text-xl mb-3" />
+              <p className="text-gray-700 text-sm leading-relaxed mb-5">“{item.text}”</p>
+              <div className="font-semibold text-sm text-purple-900">{item.name}</div>
+              <div className="text-xs text-purple-700">{item.role}</div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
-
-export default TestB;

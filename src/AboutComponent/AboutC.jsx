@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AboutC() {
+export default function AboutC() {
   const keyframes = `
     @keyframes infiniteScroll {
       0% { transform: translateX(0); }
@@ -8,48 +8,47 @@ function AboutC() {
     }
   `;
 
-  const outlinedText = {
-    color: 'transparent',
-    WebkitTextStroke: '2px #6b21a8',
-    wordSpacing: '5px',
-  };
-
-  const filledText = {
+  const textStyle = {
     color: '#af08af',
     wordSpacing: '5px',
+    WebkitTextStroke: '1px #6b21a8', // Optional for a light outlined look
   };
 
   return (
-    <div className="bg-white h-[30vh] w-full overflow-hidden flex items-center">
+    <div className="w-screen overflow-hidden">
       <style>{keyframes}</style>
-
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full h-[30vh] overflow-hidden flex items-center bg-white">
         <div
-          className="flex whitespace-nowrap w-max"
+          className="flex whitespace-nowrap"
           style={{
-            display: 'flex',
             animation: 'infiniteScroll 15s linear infinite',
           }}
         >
-          {/* First duplicate */}
-          <div className="flex gap-10 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif">
-            <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits,</span>
-            <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits,</span>
-          </div>
-
-          {/* Second duplicate */}
-          <div className="flex gap-10 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif">
-            <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits,</span>
-            <span style={outlinedText}>HR Consulting,</span>
-            <span style={filledText}>Sponsor Compliance And Audits</span>
-          </div>
+          {[...Array(2)].flatMap((_, index) => [
+            <span
+              key={`hr-${index}`}
+              style={textStyle}
+              className="mx-4 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif"
+            >
+              HR Consulting,
+            </span>,
+            <span
+              key={`audit-${index}`}
+              style={textStyle}
+              className="mx-4 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif"
+            >
+              Sponsor Compliance And Audits,
+            </span>,
+            <span
+              key={`recruit-${index}`}
+              style={textStyle}
+              className="mx-4 text-3xl sm:text-4xl md:text-5xl font-extrabold font-serif"
+            >
+              End to End Recruitment,
+            </span>,
+          ])}
         </div>
       </div>
     </div>
   );
 }
-
-export default AboutC;

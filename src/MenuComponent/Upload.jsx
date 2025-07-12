@@ -2,19 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Upload() {
-  const [uploads, setUploads]   = useState([]);
+  const [uploads, setUploads] = useState([]);
   const [formData, setFormData] = useState({
-    title:       '',
+    title: '',
     description: '',
-    images:      []
+    images: []
   });
-  const [loading, setLoading]   = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Load existing uploads when the component mounts
     const fetchUploads = async () => {
       try {
-        const res = await axios.get('/api/works');
+        const res = await axios.get('https://agibackend.onrender.com/api/works');
         setUploads(res.data);
       } catch (err) {
         console.error('Failed to fetch uploads:', err);
@@ -31,7 +30,7 @@ export default function Upload() {
   const handleImageChange = e => {
     const files = Array.from(e.target.files);
     const previews = files.map(file => ({
-      id:  Date.now() + Math.random(),
+      id: Date.now() + Math.random(),
       file,
       url: URL.createObjectURL(file)
     }));
@@ -54,12 +53,13 @@ export default function Upload() {
 
     try {
       setLoading(true);
-      const res = await axios.post('/api/works', body, {
+      const res = await axios.post('https://agibackend.onrender.com/api/works', body, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization:   `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       });
+
       console.log('✅ Upload success:', res.data);
       setUploads(u => [res.data, ...u]);
       setFormData({ title: '', description: '', images: [] });
@@ -71,14 +71,14 @@ export default function Upload() {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     const token = localStorage.getItem('adminToken');
     if (!token) return alert('Unauthorized. Please log in.');
 
     if (!window.confirm('Are you sure you want to delete this upload?')) return;
 
     try {
-      await axios.delete(`/api/works/${id}`, {
+      await axios.delete(`https://agibackend.onrender.com/api/works/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -92,33 +92,33 @@ export default function Upload() {
   };
 
   return (
-    <div className="p-6 bg-white rounded-xl shadow-md w-full">
+    <div className="p-6 bg-white rounded-xl shadow-md w-full max-w-4xl mx-auto">
       <h2 className="text-2xl font-bold mb-4">📁 Upload Latest Works</h2>
+
       <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-        {/* Title */}
         <div>
-          <label>Title</label>
+          <label className="block mb-1 font-medium">Title</label>
           <input
             name="title"
             value={formData.title}
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
+            placeholder="Enter title"
           />
         </div>
-        {/* Description */}
         <div>
-          <label>Description</label>
+          <label className="block mb-1 font-medium">Description</label>
           <textarea
             name="description"
             rows="3"
             value={formData.description}
             onChange={handleInputChange}
             className="w-full p-2 border rounded"
+            placeholder="Enter description"
           />
         </div>
-        {/* Images */}
         <div>
-          <label>Upload Images</label>
+          <label className="block mb-1 font-medium">Upload Images</label>
           <input
             type="file"
             multiple
@@ -127,6 +127,7 @@ export default function Upload() {
             className="w-full"
           />
         </div>
+
         {formData.images.length > 0 && (
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-3">
             {formData.images.map(img => (
@@ -139,6 +140,7 @@ export default function Upload() {
             ))}
           </div>
         )}
+
         <button
           type="submit"
           disabled={loading}
@@ -148,9 +150,8 @@ export default function Upload() {
         </button>
       </form>
 
-      {/* Display Uploaded Posts */}
       {uploads.map(post => (
-        <div key={post._id} className="border p-4 mb-4 rounded">
+        <div key={post._id} className="border p-4 mb-6 rounded bg-gray-50">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-xl font-semibold">{post.title}</h3>
             <button
@@ -165,7 +166,7 @@ export default function Upload() {
             {post.images.map((img, i) => (
               <img
                 key={i}
-                src={img.url.startsWith('http') ? img.url : `/uploads/${img.filename}`}
+                src={img.url}
                 alt=""
                 className="h-32 object-cover rounded"
               />

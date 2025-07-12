@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import imgA from '../assets/gee.jpg';
-import imgB from '../assets/misson.jpg';
+import imgA from '../assets/pple.jpg';
+import imgB from '../assets/care.jpg';
 
-// Animations
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -23,12 +22,12 @@ const slideLeft = {
   }
 };
 
-function AboutB() {
+export default function AboutB() {
   return (
-    <section className="bg-white w-full py-16">
+    <div className="w-screen overflow-hidden bg-white py-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 items-center gap-12 px-4 md:px-10 lg:px-16">
-
-        {/* ---------- IMAGE STACK ---------- */}
+        
+        {/* Image Stack */}
         <motion.div
           variants={slideLeft}
           initial="hidden"
@@ -46,22 +45,22 @@ function AboutB() {
           </div>
         </motion.div>
 
-        {/* ---------- TEXT CONTENT ---------- */}
+        {/* Text Section */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.3 }}
-          className="flex flex-col justify-center items-center md:items-start text-center md:text-left"
+          className="text-center md:text-left px-4 md:px-0"
         >
           <h2 className="text-xl md:text-2xl font-extrabold text-purple-800 mb-5 leading-snug">
             Empowering Teams with <br className="hidden md:block" /> HR & Compliance Excellence
           </h2>
 
           <p className="text-gray-700 mb-6 max-w-lg leading-relaxed text-[15px] md:text-base">
-            Agile360 PMC helps businesses streamline operations, comply with regulations, and build
-            winning cultures. Our consultants bring real-world insight and custom HR strategies that
-            drive productivity and success.
+            Agile360 PMC helps businesses streamline operations, comply with regulations,
+            and build winning cultures. Our consultants bring real-world insight and custom
+            HR strategies that drive productivity and success.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
@@ -80,24 +79,16 @@ function AboutB() {
               </button>
             </Link>
 
-            <Link
-              to="/service"
-              className="text-purple-700 font-semibold hover:underline flex items-center gap-1 transition"
-            >
+            <Link to="/service" className="text-purple-700 font-semibold hover:underline flex items-center gap-1">
               View Services <span className="text-xl">↗</span>
             </Link>
 
-            <Link
-              to="/test"
-              className="text-purple-700 font-semibold hover:underline flex items-center gap-1 transition"
-            >
+            <Link to="/test" className="text-purple-700 font-semibold hover:underline flex items-center gap-1">
               Testimonials <span className="text-lg">💬</span>
             </Link>
           </div>
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 }
-
-export default AboutB;

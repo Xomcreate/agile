@@ -14,17 +14,15 @@ const fadeUp = {
 
 const staggerContainer = {
   visible: {
-    transition: {
-      staggerChildren: 0.2
-    }
+    transition: { staggerChildren: 0.2 }
   }
 };
 
-function AboutD() {
+export default function AboutD() {
   return (
-    <div className="bg-[#e9f8f5] w-full py-16 md:py-20">
+    <div className="w-screen overflow-hidden bg-[#e9f8f5] py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
-
+        
         {/* IMAGE COLUMN */}
         <motion.div
           variants={fadeUp}
@@ -57,7 +55,7 @@ function AboutD() {
             <h2 className="text-xl md:text-3xl font-extrabold text-gray-800 leading-tight z-10 relative">
               We Provide Creative Solutions
             </h2>
-            <span className="absolute bottom-0 left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 w-24 h-1 bg-purple-600 rounded-full"></span>
+            <span className="absolute bottom-0 left-1/2 md:left-0 transform -translate-x-1/2 md:translate-x-0 w-24 h-1 bg-purple-600 rounded-full" />
           </div>
 
           <p className="text-gray-700 mb-6 max-w-xl mx-auto md:mx-0 text-sm md:text-[15px] leading-relaxed">
@@ -95,5 +93,3 @@ function AboutD() {
     </div>
   );
 }
-
-export default AboutD;

@@ -13,7 +13,7 @@ function BlogManager() {
 
   const fetchBlogs = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/blogs');
+      const res = await fetch('https://agibackend.onrender.com/api/blogs');
       const data = await res.json();
       setBlogs(data);
     } catch (err) {
@@ -27,7 +27,9 @@ function BlogManager() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this post?')) return;
-    await fetch(`http://localhost:5000/api/blogs/${id}`, { method: 'DELETE' });
+    await fetch(`https://agibackend.onrender.com/api/blogs/${id}`, {
+      method: 'DELETE',
+    });
     fetchBlogs();
   };
 
@@ -51,7 +53,7 @@ function BlogManager() {
     if (formData.imageFile) form.append('thumbnail', formData.imageFile);
 
     try {
-      const res = await fetch('http://localhost:5000/api/blogs', {
+      const res = await fetch('https://agibackend.onrender.com/api/blogs', {
         method: 'POST',
         body: form,
       });
@@ -85,7 +87,7 @@ function BlogManager() {
         {blogs.map((post) => (
           <div key={post._id} className="bg-white rounded-xl shadow-md overflow-hidden">
             <img
-              src={`http://localhost:5000${post.thumbnail}`}
+              src={post.thumbnail}
               className="w-full h-48 object-cover"
               alt={post.title}
               onError={(e) => (e.target.style.display = 'none')}
@@ -93,7 +95,7 @@ function BlogManager() {
             <div className="p-4">
               <h3 className="font-bold text-lg">{post.title}</h3>
               <p className="text-gray-600 mt-2">{post.description.slice(0, 100)}...</p>
-              <p className="text-sm mt-2 text-gray-400">{post.date}</p>
+              <p className="text-sm mt-2 text-gray-400">{new Date(post.date).toLocaleDateString()}</p>
               <p
                 className={`text-xs inline-block mt-2 px-2 py-1 rounded ${
                   post.status === 'Published'
@@ -127,9 +129,7 @@ function BlogManager() {
                 required
                 className="w-full border px-3 py-2 rounded"
                 value={formData.title}
-                onChange={(e) =>
-                  setFormData({ ...formData, title: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               />
               <textarea
                 placeholder="Description"
@@ -137,16 +137,12 @@ function BlogManager() {
                 className="w-full border px-3 py-2 rounded"
                 rows="4"
                 value={formData.description}
-                onChange={(e) =>
-                  setFormData({ ...formData, description: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               ></textarea>
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) =>
-                  setFormData({ ...formData, imageFile: e.target.files[0] })
-                }
+                onChange={(e) => setFormData({ ...formData, imageFile: e.target.files[0] })}
               />
               {formData.imageFile && (
                 <img
@@ -158,9 +154,7 @@ function BlogManager() {
               <select
                 className="w-full border px-3 py-2 rounded"
                 value={formData.status}
-                onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
-                }
+                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
               >
                 <option value="Draft">Draft</option>
                 <option value="Published">Published</option>
