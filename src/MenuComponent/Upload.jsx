@@ -10,6 +10,7 @@ export default function Upload() {
   });
   const [loading, setLoading] = useState(false);
 
+  // Fetch all uploaded works
   useEffect(() => {
     const fetchUploads = async () => {
       try {
@@ -22,11 +23,13 @@ export default function Upload() {
     fetchUploads();
   }, []);
 
+  // Handle text inputs
   const handleInputChange = e => {
     const { name, value } = e.target;
     setFormData(fd => ({ ...fd, [name]: value }));
   };
 
+  // Handle multiple image uploads
   const handleImageChange = e => {
     const files = Array.from(e.target.files);
     const previews = files.map(file => ({
@@ -34,22 +37,25 @@ export default function Upload() {
       file,
       url: URL.createObjectURL(file)
     }));
-    setFormData(fd => ({ ...fd, images: [...fd.images, ...previews] }));
+    setFormData(fd => ({ ...fd, images: previews }));
   };
 
+  // Submit form to backend
   const handleSubmit = async e => {
     e.preventDefault();
-    if (!formData.title || !formData.description || formData.images.length === 0) {
+    const { title, description, images } = formData;
+
+    if (!title || !description || images.length === 0) {
       return alert('All fields are required!');
     }
 
     const body = new FormData();
-    body.append('title', formData.title);
-    body.append('description', formData.description);
-    formData.images.forEach(img => body.append('images', img.file));
+    body.append('title', title);
+    body.append('description', description);
+    images.forEach(img => body.append('images', img.file));
 
     const token = localStorage.getItem('adminToken');
-    if (!token) return alert('You must be logged in as admin.');
+    if (!token) return alert('Unauthorized: Please log in.');
 
     try {
       setLoading(true);
@@ -61,7 +67,7 @@ export default function Upload() {
       });
 
       console.log('✅ Upload success:', res.data);
-      setUploads(u => [res.data, ...u]);
+      setUploads(prev => [res.data, ...prev]);
       setFormData({ title: '', description: '', images: [] });
     } catch (err) {
       console.error('❌ Upload error:', err.response?.data || err.message);
@@ -71,6 +77,7 @@ export default function Upload() {
     }
   };
 
+  // Delete a work post
   const handleDelete = async id => {
     const token = localStorage.getItem('adminToken');
     if (!token) return alert('Unauthorized. Please log in.');
@@ -83,7 +90,7 @@ export default function Upload() {
           Authorization: `Bearer ${token}`
         }
       });
-      setUploads(u => u.filter(x => x._id !== id));
+      setUploads(prev => prev.filter(post => post._id !== id));
       alert('Upload deleted successfully.');
     } catch (err) {
       console.error('❌ Delete error:', err.response?.data || err.message);
@@ -93,7 +100,7 @@ export default function Upload() {
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-md w-full max-w-4xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">📁 Upload Latest Works</h2>
+      <h2 className="text-2xl font-bold mb-4">📸 Upload Latest Works</h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-6">
         <div>
@@ -134,7 +141,7 @@ export default function Upload() {
               <img
                 key={img.id}
                 src={img.url}
-                alt=""
+                alt="preview"
                 className="h-32 object-cover rounded"
               />
             ))}
@@ -146,10 +153,11 @@ export default function Upload() {
           disabled={loading}
           className="bg-[#af08af] text-white px-4 py-2 rounded disabled:opacity-50"
         >
-          {loading ? 'Uploading…' : 'Upload Post'}
+          {loading ? 'Uploading…' : 'Upload Work'}
         </button>
       </form>
 
+      {/* Display uploaded works */}
       {uploads.map(post => (
         <div key={post._id} className="border p-4 mb-6 rounded bg-gray-50">
           <div className="flex justify-between items-center mb-2">
@@ -163,14 +171,15 @@ export default function Upload() {
           </div>
           <p className="mb-3">{post.description}</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            {post.images.map((img, i) => (
-              <img
-                key={i}
-                src={img.url}
-                alt=""
-                className="h-32 object-cover rounded"
-              />
-            ))}
+            {Array.isArray(post.images) &&
+              post.images.map((img, i) => (
+                <img
+                  key={i}
+                  src={img.url}
+                  alt={`uploaded-${i}`}
+                  className="h-32 object-cover rounded"
+                />
+              ))}
           </div>
         </div>
       ))}
