@@ -13,7 +13,7 @@ import HomeE from '../HomeComponent/HomeE';
 
 function Home() {
   return (
-    <div>
+    <div >
 
       <HomeA />
       <HomeB />

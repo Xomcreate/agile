@@ -1,73 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
+import { FaTrash, FaPlus } from 'react-icons/fa';
 
-function BlogManager() {
-  const [blogs, setBlogs] = useState([]);
+export default function BlogManager() {
+  const [blogs, setBlogs]       = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    status: 'Draft',
-    imageFile: null,
+    title: '', description: '', status: 'Draft', imageFile: null,
   });
 
   const fetchBlogs = async () => {
-    try {
-      const res = await fetch('https://agibackend.onrender.com/api/blogs');
-      const data = await res.json();
-      setBlogs(data);
-    } catch (err) {
-      console.error('Failed to fetch blogs', err);
-    }
+    const res  = await fetch('https://agibackend.onrender.com/api/blogs', { mode: 'cors' });
+    const data = await res.json();
+    setBlogs(data);
   };
 
-  useEffect(() => {
-    fetchBlogs();
-  }, []);
+  useEffect(() => { fetchBlogs(); }, []);
 
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this post?')) return;
     await fetch(`https://agibackend.onrender.com/api/blogs/${id}`, {
-      method: 'DELETE',
+      method: 'DELETE', mode: 'cors'
     });
     fetchBlogs();
   };
 
   const handleAddNew = () => {
-    setFormData({
-      title: '',
-      description: '',
-      status: 'Draft',
-      imageFile: null,
-    });
+    setFormData({ title: '', description: '', status: 'Draft', imageFile: null });
     setShowForm(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('title', formData.title);
+    data.append('description', formData.description);
+    data.append('status', formData.status);
+    if (formData.imageFile) data.append('thumbnail', formData.imageFile);
 
-    const form = new FormData();
-    form.append('title', formData.title);
-    form.append('description', formData.description);
-    form.append('status', formData.status);
-    if (formData.imageFile) form.append('thumbnail', formData.imageFile);
+    const res = await fetch('https://agibackend.onrender.com/api/blogs', {
+      method: 'POST', mode: 'cors', body: data
+    });
 
-    try {
-      const res = await fetch('https://agibackend.onrender.com/api/blogs', {
-        method: 'POST',
-        body: form,
-      });
-
-      if (!res.ok) {
-        const error = await res.json();
-        console.error('Upload failed:', error);
-        return;
-      }
-
+    if (res.ok) {
       setShowForm(false);
       fetchBlogs();
-    } catch (err) {
-      console.error('Error submitting blog:', err);
+    } else {
+      console.error('Upload failed:', await res.json());
     }
   };
 
@@ -84,25 +62,25 @@ function BlogManager() {
       </div>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-        {blogs.map((post) => (
+        {blogs.map(post => (
           <div key={post._id} className="bg-white rounded-xl shadow-md overflow-hidden">
             <img
               src={post.thumbnail}
-              className="w-full h-48 object-cover"
               alt={post.title}
-              onError={(e) => (e.target.style.display = 'none')}
+              className="w-full h-48 object-cover"
+              onError={e => (e.target.style.display = 'none')}
             />
             <div className="p-4">
               <h3 className="font-bold text-lg">{post.title}</h3>
               <p className="text-gray-600 mt-2">{post.description.slice(0, 100)}...</p>
-              <p className="text-sm mt-2 text-gray-400">{new Date(post.date).toLocaleDateString()}</p>
-              <p
-                className={`text-xs inline-block mt-2 px-2 py-1 rounded ${
-                  post.status === 'Published'
-                    ? 'bg-green-200 text-green-800'
-                    : 'bg-yellow-200 text-yellow-800'
-                }`}
-              >
+              <p className="text-sm mt-2 text-gray-400">
+                {new Date(post.date).toLocaleDateString()}
+              </p>
+              <p className={`text-xs inline-block mt-2 px-2 py-1 rounded ${
+                post.status === 'Published'
+                  ? 'bg-green-200 text-green-800'
+                  : 'bg-yellow-200 text-yellow-800'
+              }`}>
                 {post.status}
               </p>
               <div className="flex justify-end gap-2 mt-4">
@@ -129,32 +107,32 @@ function BlogManager() {
                 required
                 className="w-full border px-3 py-2 rounded"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={e => setFormData({ ...formData, title: e.target.value })}
               />
               <textarea
                 placeholder="Description"
                 required
-                className="w-full border px-3 py-2 rounded"
                 rows="4"
+                className="w-full border px-3 py-2 rounded"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              ></textarea>
+                onChange={e => setFormData({ ...formData, description: e.target.value })}
+              />
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => setFormData({ ...formData, imageFile: e.target.files[0] })}
+                onChange={e => setFormData({ ...formData, imageFile: e.target.files[0] })}
               />
               {formData.imageFile && (
                 <img
                   src={URL.createObjectURL(formData.imageFile)}
-                  className="h-32 w-full object-cover rounded"
                   alt="Preview"
+                  className="h-32 w-full object-cover rounded"
                 />
               )}
               <select
                 className="w-full border px-3 py-2 rounded"
                 value={formData.status}
-                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                onChange={e => setFormData({ ...formData, status: e.target.value })}
               >
                 <option value="Draft">Draft</option>
                 <option value="Published">Published</option>
@@ -181,5 +159,3 @@ function BlogManager() {
     </div>
   );
 }
-
-export default BlogManager;

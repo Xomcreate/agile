@@ -1,16 +1,29 @@
+// src/components/ContactB.jsx
 import React, { useState } from 'react';
 import {
-  FaPhoneAlt, FaEnvelope, FaMapMarkerAlt,
-  FaUser, FaChevronDown, FaPen, FaThumbsUp
+  FaPhoneAlt,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaUser,
+  FaChevronDown,
+  FaPen,
+  FaThumbsUp
 } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export default function ContactB() {
   const [form, setForm] = useState({
-    name: '', email: '', subject: '', phone: '', message: '', terms: false
+    name: '',
+    email: '',
+    subject: '',
+    phone: '',
+    message: '',
+    terms: false
   });
   const [status, setStatus] = useState({
-    loading: false, success: null, error: null
+    loading: false,
+    success: null,
+    error: null
   });
 
   const handleChange = e => {
@@ -26,11 +39,15 @@ export default function ContactB() {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      const res = await fetch('https://agibackend.onrender.com/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      });
+      const res = await fetch(
+        'https://agibackend.onrender.com/api/contact',
+        {
+          method: 'POST',
+          mode: 'cors',                         // ← enable CORS mode
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form)
+        }
+      );
 
       const text = await res.text();
       let data;
@@ -41,8 +58,16 @@ export default function ContactB() {
       }
 
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
+
       setStatus({ loading: false, success: data.message, error: null });
-      setForm({ name: '', email: '', subject: '', phone: '', message: '', terms: false });
+      setForm({
+        name: '',
+        email: '',
+        subject: '',
+        phone: '',
+        message: '',
+        terms: false
+      });
     } catch (err) {
       setStatus({ loading: false, success: null, error: err.message });
     }
@@ -216,6 +241,7 @@ export default function ContactB() {
             </div>
           </form>
         </motion.div>
+
       </div>
     </div>
   );

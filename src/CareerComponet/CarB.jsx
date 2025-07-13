@@ -46,16 +46,12 @@ function CarB() {
                   : job.description}
               </p>
 
-              <div className="flex items-center gap-3 text-gray-500 text-sm mb-4">
+              <div className="flex items-center gap-3 text-gray-500 text-sm">
                 <FaMapMarkerAlt className="text-purple-500" />
                 <span>{job.location}</span>
                 <FaClock className="text-purple-500 ml-4" />
                 <span>{job.type}</span>
               </div>
-
-              <button className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition">
-                View Details
-              </button>
             </motion.div>
           ))
         ) : (

@@ -1,3 +1,4 @@
+// src/components/BlogD.jsx
 import React, { useState } from 'react';
 
 export default function BlogD() {
@@ -14,9 +15,11 @@ export default function BlogD() {
     e.preventDefault();
     setStatus('');
     setLoading(true);
+
     try {
       const res = await fetch('https://agibackend.onrender.com/api/reviews', {
         method: 'POST',
+        mode: 'cors',                         // ← enable CORS mode
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, rating }),
       });
@@ -97,5 +100,5 @@ export default function BlogD() {
         </div>
       </div>
     </div>
-  );
+);
 }

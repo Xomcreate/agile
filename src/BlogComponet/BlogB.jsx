@@ -2,42 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { FaCalendarAlt, FaBullhorn } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.6,
-      ease: 'easeOut',
-    },
-  },
-};
-
 export default function BlogB() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    fetch('https://agibackend.onrender.com/api/blogs')
-      .then((res) => res.json())
-      .then((data) => {
-        const published = data.filter(
-          (blog) => blog.status?.toLowerCase() === 'published'
-        );
+    fetch('https://agibackend.onrender.com/api/blogs', { mode: 'cors' })
+      .then(res => res.json())
+      .then(data => {
+        const published = data.filter(b => b.status.toLowerCase() === 'published');
         setBlogs(published);
       })
-      .catch((err) => {
-        console.error('Error fetching blogs:', err);
-      });
+      .catch(err => console.error('Error fetching blogs:', err));
   }, []);
 
   return (
@@ -50,17 +25,20 @@ export default function BlogB() {
       </div>
 
       <motion.div
-        variants={containerVariants}
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.3 }}
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
       >
         {blogs.map(({ _id, date, title, description, thumbnail }) => (
           <motion.div
             key={_id}
             className="bg-white rounded-xl shadow-md hover:shadow-lg transition duration-300 overflow-hidden"
-            variants={fadeUp}
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+            }}
           >
             <img
               src={thumbnail}
@@ -75,9 +53,7 @@ export default function BlogB() {
                 </time>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-              <p className="text-sm text-gray-700">
-                {description?.slice(0, 100)}...
-              </p>
+              <p className="text-sm text-gray-700">{description.slice(0, 100)}...</p>
             </div>
           </motion.div>
         ))}

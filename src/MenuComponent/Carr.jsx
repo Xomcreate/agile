@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Carr() {
   const [formData, setFormData] = useState({
@@ -10,6 +10,21 @@ function Carr() {
 
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [careers, setCareers] = useState([]);
+
+  useEffect(() => {
+    fetchCareers();
+  }, []);
+
+  const fetchCareers = async () => {
+    try {
+      const res = await fetch('https://agibackend.onrender.com/api/careers');
+      const data = await res.json();
+      setCareers(data);
+    } catch (err) {
+      console.error('Error fetching careers:', err);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -36,11 +51,29 @@ function Carr() {
 
       setMessage('✅ Career opportunity posted successfully!');
       setFormData({ title: '', description: '', location: '', type: 'Full-time' });
+      fetchCareers();
     } catch (error) {
       console.error(error);
       setMessage('❌ Something went wrong. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this job post?')) return;
+
+    try {
+      const res = await fetch(`https://agibackend.onrender.com/api/careers/${id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) throw new Error('Delete failed');
+
+      setCareers((prev) => prev.filter((job) => job._id !== id));
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      alert('Failed to delete job');
     }
   };
 
@@ -118,6 +151,35 @@ function Carr() {
 
         {message && (
           <p className="mt-4 text-sm text-center text-green-600 font-medium">{message}</p>
+        )}
+      </div>
+
+      {/* List of posted careers with delete button */}
+      <div className="mt-12 max-w-3xl mx-auto">
+        <h3 className="text-lg font-semibold text-gray-700 mb-4">Posted Jobs</h3>
+        {careers.length === 0 ? (
+          <p className="text-gray-500">No job posts yet.</p>
+        ) : (
+          <ul className="space-y-4">
+            {careers.map((career) => (
+              <li
+                key={career._id}
+                className="bg-white p-4 rounded-lg shadow border border-gray-200 flex justify-between items-start"
+              >
+                <div>
+                  <h4 className="font-bold text-gray-800">{career.title}</h4>
+                  <p className="text-sm text-gray-600">{career.location} — {career.type}</p>
+                  <p className="text-sm text-gray-500 mt-1">{career.description.slice(0, 100)}...</p>
+                </div>
+                <button
+                  onClick={() => handleDelete(career._id)}
+                  className="ml-4 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     </div>

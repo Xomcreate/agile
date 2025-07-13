@@ -1,3 +1,4 @@
+// src/components/Appointment.jsx
 import React, { useState } from 'react';
 
 export default function Appointment() {
@@ -29,6 +30,7 @@ export default function Appointment() {
     try {
       const res = await fetch('https://agibackend.onrender.com/api/appointments', {
         method: 'POST',
+        mode: 'cors',                        // ← enable CORS mode
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });

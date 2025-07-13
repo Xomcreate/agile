@@ -2,13 +2,20 @@
 
 .clip-cutout {
   clip-path: polygon(0 0,100% 0,100% 100%,75% 100%,50% 80%,25% 100%,0 100%);
-
   border-bottom-left-radius: 9999px;
   border-bottom-right-radius: 9999px;
 }
+
 @layer base {
   html, body {
-    overflow-x: hidden;
+    overflow-x: hidden; /* Only hide horizontal overflow */
+    overflow-y: auto;   /* Keep vertical scroll */
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 }
-
