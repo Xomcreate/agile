@@ -15,7 +15,7 @@ export default function AboutC() {
   };
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full ">
       <style>{keyframes}</style>
       <div className="relative w-full h-[30vh] overflow-hidden flex items-center bg-white">
         <div

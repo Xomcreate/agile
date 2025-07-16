@@ -4,10 +4,10 @@ import img from '../assets/boss.jpg';
 
 export default function HomeC() {
   return (
-    <div className="relative w-full overflow-x-hidden bg-white py-10 px-4 md:px-8 lg:px-16">
-      <div className="bg-[#af08af] rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center p-6 md:p-10 max-w-7xl mx-auto">
+    <div className="relative w-full bg-white py-12 px-4 md:px-10 lg:px-20 overflow-x-hidden">
+      <div className="bg-[#af08af] rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center p-8 md:p-12 max-w-[95rem] mx-auto min-h-[380px]">
         
-        {/* ✅ Animated Image */}
+        {/* ✅ Image with animation */}
         <motion.div
           initial={{ x: -100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
@@ -22,24 +22,23 @@ export default function HomeC() {
           />
         </motion.div>
 
-        {/* ✅ Animated Text */}
+        {/* ✅ Text with animation */}
         <motion.div
           initial={{ x: 100, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ duration: 1 }}
           viewport={{ once: false, amount: 0.4 }}
-          className="text-white space-y-4"
+          className="text-white"
         >
-          {/* Centered Title & Stars */}
-          <div className="text-center">
-            <h2 className="text-xl md:text-2xl font-semibold">Our Mission</h2>
+          {/* Title and Rating */}
+          <div className="text-center md:text-left">
+            <h2 className="text-2xl md:text-3xl font-bold">Our Mission</h2>
             <div className="text-yellow-300 text-xl mt-2">⭐⭐⭐⭐⭐</div>
           </div>
 
-          <p className="text-sm md:text-base leading-relaxed text-justify">
-            "Agile360 PMC is a project management consulting service specializing in Human Resources consulting practice, HR Outsourcing and Sponsor Compliance audits.
-            We work in partnership with our clients to develop and implement strategic and tactical solutions across all aspects of Human Resources Management and Sponsor Compliance.
-            We partner with all shapes and sizes of organizations from start-ups to global corporates; we are agile and creative in how we deliver a great client experience."
+          {/* Mission Text (tight spacing, no paragraph gaps) */}
+          <p className="text-sm md:text-base leading-relaxed text-justify mt-4">
+            "Agile360 PMC is a project management consulting service specializing in Human Resources consulting practice, HR Outsourcing and Sponsor Compliance audits. We work in partnership with our clients to develop and implement strategic and tactical solutions across all aspects of Human Resources Management and Sponsor Compliance. We partner with all shapes and sizes of organizations from start-ups to global corporates; we are agile and creative in how we deliver a great client experience."
           </p>
         </motion.div>
       </div>

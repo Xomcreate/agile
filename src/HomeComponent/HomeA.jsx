@@ -20,16 +20,8 @@ export default function HomeA() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-x-hidden">
-      <section
-        className="
-          relative text-white rounded-b-3xl
-          mx-auto max-w-[1440px]
-          mt-5 overflow-hidden
-          h-auto sm:h-[60vh] md:h-[70vh] lg:h-[80vh]
-          px-4 sm:px-6 md:px-8 lg:px-12
-        "
-      >
+    <div className="w-full">
+      <section className="relative text-white h-[80vh] w-full px-4 sm:px-6 md:px-16 py-6 rounded-3xl overflow-hidden">
         {/* Background Slideshow */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -38,63 +30,63 @@ export default function HomeA() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="absolute inset-0 bg-cover bg-center z-0 w-full"
+            className="absolute inset-0 bg-cover bg-center z-0"
             style={{ backgroundImage: `url(${bgImages[currentBg]})` }}
           />
         </AnimatePresence>
 
-        {/* Overlay */}
+        {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/40 z-10" />
 
-        {/* Content */}
-        <div className="relative z-20 max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center lg:items-start py-12 sm:py-16 lg:py-20 h-full">
-          {/* Left Content */}
-          <div className="w-full lg:w-1/2 mt-8 lg:mt-0 text-center lg:text-left">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold leading-snug mb-4 sm:mb-6">
+        {/* Text & Button Content (moved down further) */}
+        <div className="relative z-20 h-full flex items-start pt-27">
+          <div className="max-w-xl space-y-6">
+            <h1 className="text-3xl sm:text-3xl md:text-4xl font-extrabold leading-snug tracking-tight drop-shadow-md">
               Human Resources Consulting,<br />
               Compliance Audit and Solutions<br />
-              <span className="underline decoration-[purple]">Implementation</span>
+              <span className="underline decoration-pink-600 decoration-4 underline-offset-4">
+                Implementation
+              </span>
             </h1>
-            <p className="text-gray-300 mb-6 max-w-md mx-auto lg:mx-0 text-xs sm:text-sm md:text-base">
+
+            <p className="text-base sm:text-lg font-medium max-w-md">
               Optimize Your HR Function with Our Expert Guidance
             </p>
 
-            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0 w-full text-center">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-3 sm:space-y-0 pt-2">
               <button
                 onClick={() => setShowModal(true)}
-                className="mx-auto sm:mx-0 bg-black hover:bg-[#af08af] px-4 py-2 sm:px-5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm"
+                className="bg-black hover:bg-[#af08af] px-4 py-2 sm:px-5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm"
               >
                 Schedule An Appointment
               </button>
-              <div className="flex justify-center sm:justify-start items-center text-gray-200 text-xs sm:text-sm">
+              <div className="flex items-center text-gray-200 text-xs sm:text-sm">
                 <span className="mr-2">📞</span>
                 <span>(+44) 7770627646</span>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Right Icon */}
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end mb-6 lg:mb-0">
-            <button
-              className="bg-[purple] hover:bg-[#af08af] p-4 sm:p-5 rounded-full shadow-lg flex items-center justify-center"
-            >
-              <img src={PlayIcon} alt="Play Video" className="w-5 h-5 sm:w-6 sm:h-6" />
-            </button>
-          </div>
+        {/* Purple Icon */}
+        <div className="absolute top-9 right-6 z-30">
+          <button className="bg-[purple] hover:bg-[#af08af] p-5 rounded-full shadow-lg">
+            <img src={PlayIcon} alt="Play Video" className="w-6 h-6" />
+          </button>
         </div>
       </section>
 
-      {/* Modal */}
+      {/* Appointment Modal */}
       <AnimatePresence>
         {showModal && (
           <motion.div
-            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 overflow-y-auto relative max-h-[90vh]"
+              className="bg-white rounded-2xl shadow-lg w-full max-w-3xl p-6 relative max-h-[90vh] overflow-y-auto"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 50, opacity: 0 }}

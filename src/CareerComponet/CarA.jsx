@@ -28,7 +28,7 @@ const zoomIn = {
 
 function CarA() {
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full ">
       <div className="grid h-[80vh] w-full px-4 md:px-24 py-6">
         <motion.div
           variants={zoomIn}

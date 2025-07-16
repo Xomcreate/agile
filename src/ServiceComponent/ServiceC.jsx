@@ -198,7 +198,7 @@ Talk to us today to get started.`,
   ];
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div>
       <div className="w-full py-14 px-4 md:px-16">
         <div className="bg-[#fdf1fc] rounded-3xl shadow-2xl py-10 px-6 md:px-10">
           {/* Heading */}

@@ -40,7 +40,7 @@ const longWriteup = services.map(s => s.desc).join(' ');
 
 function ServiceB() {
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full">
       <div className="bg-white w-full py-12 px-4 sm:px-6 md:px-12 lg:px-20">
         {/* Heading */}
         <div className="mb-8 text-center md:text-left">

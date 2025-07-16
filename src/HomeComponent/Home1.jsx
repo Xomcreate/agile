@@ -39,8 +39,8 @@ const services = [
 
 export default function Home1() {
   return (
-    <div className="w-screen overflow-hidden">
-      <div className="max-w-7xl mx-auto w-full py-14 px-4 md:px-16">
+    <div className="w-full ">
+      <div className="max-w-7xl mx-auto py-14 px-4 md:px-16">
         
         {/* Heading */}
         <motion.div

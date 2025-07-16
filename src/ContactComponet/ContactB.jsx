@@ -1,4 +1,3 @@
-// src/components/ContactB.jsx
 import React, { useState } from 'react';
 import {
   FaPhoneAlt,
@@ -39,15 +38,12 @@ export default function ContactB() {
     setStatus({ loading: true, success: null, error: null });
 
     try {
-      const res = await fetch(
-        'https://agibackend.onrender.com/api/contact',
-        {
-          method: 'POST',
-          mode: 'cors',                         // ← enable CORS mode
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form)
-        }
-      );
+      const res = await fetch('https://agibackend.onrender.com/api/contact', {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form)
+      });
 
       const text = await res.text();
       let data;
@@ -74,15 +70,15 @@ export default function ContactB() {
   };
 
   return (
-    <div className="w-screen overflow-hidden bg-white py-12 px-4 md:px-12">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+    <div className="w-full bg-white py-12 px-4">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 px-2 sm:px-4">
 
         {/* LEFT PANEL */}
         <motion.div
           className="w-full md:w-1/2 space-y-5"
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: false, amount: 0.2 }}
         >
           <p className="text-xs font-medium text-[#af08af] uppercase">Get In Touch</p>
@@ -131,9 +127,9 @@ export default function ContactB() {
         {/* RIGHT PANEL */}
         <motion.div
           className="w-full md:w-1/2 bg-white shadow-lg p-6 rounded-xl"
-          initial={{ opacity: 0, x: 50 }}
+          initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: false, amount: 0.2 }}
         >
           <p className="text-xs font-medium text-[#af08af] uppercase">Contact Us</p>
@@ -241,7 +237,6 @@ export default function ContactB() {
             </div>
           </form>
         </motion.div>
-
       </div>
     </div>
   );

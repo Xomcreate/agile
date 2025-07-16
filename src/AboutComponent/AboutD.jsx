@@ -20,7 +20,7 @@ const staggerContainer = {
 
 export default function AboutD() {
   return (
-    <div className="w-screen overflow-hidden bg-[#e9f8f5] py-16 md:py-20">
+    <div className="w-full bg-[#e9f8f5] py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
         
         {/* IMAGE COLUMN */}

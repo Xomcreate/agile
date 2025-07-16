@@ -9,7 +9,7 @@ const logos = [c1, c2, c3, c4];
 
 export default function HomeB() {
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto py-10 px-4 md:px-16">
         <div className="bg-white rounded-3xl px-6 py-10">
           <motion.div
@@ -21,6 +21,7 @@ export default function HomeB() {
           >
             Worldwide 1,500+ Trusted Clients with Agile
           </motion.div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {logos.map((logo, i) => (
               <motion.div
@@ -31,7 +32,11 @@ export default function HomeB() {
                 viewport={{ once: false, amount: 0.2 }}
                 className="bg-white flex items-center justify-center rounded shadow-md p-4 h-[12vh] md:h-[14vh] lg:h-[16vh]"
               >
-                <img src={logo} alt={`Company ${i + 1}`} className="max-h-full max-w-full object-contain" />
+                <img
+                  src={logo}
+                  alt={`Company ${i + 1}`}
+                  className="max-h-full max-w-full object-contain"
+                />
               </motion.div>
             ))}
           </div>

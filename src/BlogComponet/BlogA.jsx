@@ -28,25 +28,25 @@ const zoomIn = {
 
 export default function BlogA() {
   return (
-    <div className="w-full overflow-hidden">
-      <div className="grid h-[80vh] w-full px-4 md:px-24 py-6">
+    <div className="w-full">
+      <div className="h-[80vh] w-full px-4 sm:px-6 md:px-16 py-6">
         <motion.div
           variants={zoomIn}
           initial="hidden"
           animate="visible"
-          className="w-full h-full grid rounded-3xl bg-cover bg-center relative overflow-hidden"
+          className="h-full rounded-3xl bg-cover bg-center relative"
           style={{ backgroundImage: `url(${blogImage})` }}
         >
-          {/* Dark overlay */}
+          {/* Overlay */}
           <div className="absolute inset-0 bg-black/40 z-0 rounded-3xl" />
 
-          {/* Left-aligned content */}
+          {/* Text */}
           <motion.div
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.3 }}
-            className="relative z-10 w-full h-full flex items-center justify-start text-left px-6 md:px-16"
+            className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-12 lg:px-20"
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -58,7 +58,7 @@ export default function BlogA() {
                 Explore Our <span className="border-b-2 border-purple-600">Blog</span>
               </h1>
 
-              <p className="text-xs sm:text-sm md:text-base text-white mb-4 leading-relaxed">
+              <p className="text-sm sm:text-base text-white mb-4 leading-relaxed">
                 Get insights, news, and thought-leadership from our team. We share stories and
                 strategies that help businesses grow and stay informed.
               </p>

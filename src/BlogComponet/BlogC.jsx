@@ -48,7 +48,7 @@ export default function BlogC() {
   }, []);
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center text-purple-800 mb-10">
           ⭐ Reviews & Ratings

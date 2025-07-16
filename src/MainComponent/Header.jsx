@@ -29,24 +29,24 @@ export default function Header() {
     : 'bg-transparent';
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full">
       <motion.header
         initial={{ y: -70, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
         className={`${bgClass} fixed inset-x-0 top-0 z-50 transition-all duration-300`}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between h-20 px-4 md:px-8 lg:px-10">
           <Link to="/" className="flex-shrink-0">
             <img
               src={Logo}
               alt="Logo"
-              className="h-16 w-auto rounded-full object-cover transition-opacity"
+              className="h-16 w-auto rounded-full object-cover"
             />
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex space-x-6 text-gray-800 text-sm md:text-base font-medium">
+          <nav className="hidden md:flex flex-1 justify-center space-x-6 text-gray-800 text-3xl md:text-base font-bold">
             {[
               ['/', 'Home'],
               ['/about', 'About'],
@@ -67,8 +67,8 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center space-x-3 text-sm">
-            <div className="flex items-center bg-[#af08af] hover:bg-purple-800 text-white px-4 py-2 rounded-lg font-semibold space-x-2 transition-colors">
+          <div className="hidden md:flex items-center justify-end gap-3 text-sm font-bold">
+            <div className="flex items-center bg-[#af08af] hover:bg-purple-800 text-white px-4 py-2 rounded-lg gap-2">
               <Link to="/contact">Get A Quote</Link>
               <Link to="/" className="hover:underline">&#8594;</Link>
             </div>
@@ -81,6 +81,7 @@ export default function Header() {
             </button>
           </div>
 
+          {/* Mobile Nav Toggle */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen((o) => !o)}
@@ -92,7 +93,7 @@ export default function Header() {
         </div>
       </motion.header>
 
-      {/* Mobile Nav */}
+      {/* Mobile Navigation */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -102,7 +103,7 @@ export default function Header() {
             exit={{ opacity: 0, scaleY: 0 }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
             style={{ transformOrigin: 'top' }}
-            className="md:hidden fixed inset-x-0 top-20 z-40 bg-white shadow-md px-6 pt-4 pb-6 text-center text-gray-800 text-sm font-medium space-y-3"
+            className="md:hidden fixed inset-x-0 top-20 z-40 bg-white shadow-md px-6 pt-4 pb-6 text-center text-gray-800 text-sm font-bold space-y-3"
           >
             {[
               ['/', 'Home'],
@@ -143,7 +144,7 @@ export default function Header() {
 
       {/* Admin Modal */}
       <AnimatePresence>
-        {showAdminModal && !Boolean(localStorage.getItem('adminToken')) && (
+        {showAdminModal && !isAdminLoggedIn && (
           <motion.div
             className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
             initial={{ opacity: 0 }}

@@ -26,162 +26,176 @@ const fadeInUp = {
 
 const Footer = () => (
   <motion.footer
-    className="bg-[purple] text-white pt-16 px-6 md:px-20 relative"
+    className="bg-[purple] text-white pt-20 px-6 md:px-20 text-lg leading-relaxed"
     initial={{ opacity: 0 }}
     whileInView={{ opacity: 1 }}
     viewport={{ once: true }}
     transition={{ duration: 1 }}
   >
-    <div className="max-w-screen-xl mx-auto flex flex-wrap justify-center md:justify-between gap-12 pb-12">
+    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 pb-16">
       
+      {/* Logo & Newsletter */}
       <motion.div
-        className="flex-1 min-w-[250px] max-w-[300px]"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         custom={1}
+        className="space-y-5"
       >
-        <h1 className="text-3xl font-bold flex items-center gap-2 justify-center md:justify-start">
-          <img src={logo} alt="Logo" className="h-17 w-[200px]" />
-        </h1>
-        <p className="text-sm mt-4 leading-relaxed md:text-left text-center">
+        <img src={logo} alt="Logo" className="h-20 w-auto mx-auto md:mx-0" />
+        <p className="text-base text-center md:text-left font-medium">
           Agile360 PMC is a project management consulting firm specializing in
           HR consulting and Sponsor Compliance audits and solutions.
         </p>
-
-        <div className="mt-6 w-full">
-          <label
-            htmlFor="mail"
-            className="text-sm font-medium block mb-2 md:text-left text-center"
-          >
+        <div className="space-y-3">
+          <label htmlFor="mail" className="block text-base font-semibold text-center md:text-left">
             Enter E-Mail*
           </label>
-          <div className="flex items-center w-full">
+          <div className="flex w-full">
             <input
               id="mail"
               type="email"
               placeholder="example@mail.com"
-              className="flex-1 px-3 py-2 text-black bg-white rounded-l-md focus:outline-none"
+              className="flex-1 px-4 py-3 text-black bg-white rounded-l-md text-base focus:outline-none"
             />
             <button
               onClick={() => (window.location.href = '/')}
-              className="bg-black hover:bg-gray-800 px-4 py-2 rounded-r-full text-white font-medium"
+              className="bg-black hover:bg-gray-800 px-5 py-3 rounded-r-full text-white font-semibold"
             >
               Subscribe
             </button>
           </div>
-          <div className="border-b border-white mt-3" />
+          <div className="border-b border-white mt-4" />
         </div>
       </motion.div>
 
+      {/* Company Links */}
       <motion.div
-        className="flex-1 min-w-[180px] max-w-[220px] md:text-left text-center"
+        className="md:text-left text-center space-y-5"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         custom={2}
       >
-        <h2 className="text-xl font-semibold mb-4">Company</h2>
-        <ul className="text-sm space-y-3">
-          <li><a href="/about" className="hover:underline">About Us</a></li>
-          <li><a href="/service" className="hover:underline">Services</a></li>
-          <li><a href="/test" className="hover:underline">Testimonials</a></li>
-          <li><a href="/blog" className="hover:underline">Blog</a></li>
-            <li><a href="/car" className="hover:underline">Career</a></li>
-          <li><a href="/contact" className="hover:underline">Contact</a></li>
+        <h2 className="text-2xl font-bold mb-2">Company</h2>
+        <ul className="space-y-4 text-base font-medium">
+          {[
+            ['/about', 'About Us'],
+            ['/service', 'Services'],
+            ['/test', 'Testimonials'],
+            ['/blog', 'Blog'],
+            ['/car', 'Career'],
+            ['/contact', 'Contact'],
+          ].map(([link, label]) => (
+            <li key={label}>
+              <a href={link} className="hover:underline">{label}</a>
+            </li>
+          ))}
         </ul>
       </motion.div>
 
+      {/* Services */}
       <motion.div
-        className="flex-1 min-w-[180px] max-w-[220px] md:text-left text-center"
+        className="md:text-left text-center space-y-5"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         custom={3}
       >
-        <h2 className="text-xl font-semibold mb-4">Services</h2>
-        <ul className="text-sm space-y-3">
-          <li><a href="/service" className="hover:underline">HR Consulting</a></li>
-          <li><a href="/service" className="hover:underline">Compliance & Audit</a></li>
-          <li><a href="/service" className="hover:underline">HR Outsourcing</a></li>
-          <li><a href="/service" className="hover:underline">HR Support & Advisory</a></li>
-          <li><a href="/service" className="hover:underline">Additional Services</a></li>
+        <h2 className="text-2xl font-bold mb-2">Services</h2>
+        <ul className="space-y-4 text-base font-medium">
+          {[
+            'HR Consulting',
+            'Compliance & Audit',
+            'HR Outsourcing',
+            'HR Support & Advisory',
+            'Additional Services',
+          ].map((service, index) => (
+            <li key={index}>
+              <a href="/service" className="hover:underline">{service}</a>
+            </li>
+          ))}
         </ul>
       </motion.div>
 
+      {/* Contact Info */}
       <motion.div
-        className="flex-1 min-w-[250px] max-w-[300px] md:text-left text-center"
+        className="md:text-left text-center space-y-5"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         custom={4}
       >
-        <h2 className="text-xl font-semibold mb-4">Contact</h2>
+        <h2 className="text-2xl font-bold mb-2">Contact</h2>
 
-        <div className="text-sm mb-4">
+        <div className="space-y-3 text-base">
+          <div className="flex items-start gap-2 justify-center md:justify-start">
+            <FaMapMarkerAlt className="mt-1" />
+            <div>
+              <p className="font-semibold">Our address:</p>
+              <p className="font-medium mt-1">
+                116a Brandshawgate Manchester, Leigh, WN7 4NP<br />
+                United Kingdom
+              </p>
+            </div>
+          </div>
+
+          <hr className="border-dashed border-white my-3" />
+
           <div className="flex items-center gap-2 justify-center md:justify-start">
-            <FaMapMarkerAlt className="text-white" />
-            <p className="font-semibold">Our address:</p>
+            <FaPhoneAlt />
+            <p className="font-semibold">(+44) 7770627646</p>
           </div>
-          <div className="ml-6 text-center md:text-left">
-            <p>116a Brandshawgate Manchester, Leigh, WN7 4NP,</p>
-            <p>United Kingdom</p>
+
+          <div className="flex items-center gap-2 justify-center md:justify-start">
+            <FaEnvelope />
+            <p className="font-semibold">Contact@agile360-pmc.com</p>
           </div>
-        </div>
 
-        <hr className="border-dashed border-white mb-4 w-full" />
-
-        <div className="flex items-center gap-3 text-sm mb-2 justify-center md:justify-start">
-          <FaPhoneAlt className="text-white" />
-          <p>(+44) 7770627646</p>
-        </div>
-
-        <div className="flex items-center gap-3 text-sm mb-4 justify-center md:justify-start">
-          <FaEnvelope className="text-white" />
-          <p>Contact@agile360-pmc.com</p>
-        </div>
-
-        <div className="flex gap-4 mt-4 justify-center md:justify-start">
-          <a href="https://www.facebook.com/share/1FVpy2jaZP/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
-            <FaFacebookF />
-          </a>
-          <a href="https://x.com/Agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
-            <FaTwitter />
-          </a>
-          <a href="https://www.instagram.com/_agile360pmc/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300">
-            <FaInstagram />
-          </a>
+          <div className="flex gap-5 justify-center md:justify-start pt-3">
+            <a href="https://www.facebook.com/share/1FVpy2jaZP/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+              <FaFacebookF />
+            </a>
+            <a href="https://x.com/Agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+              <FaTwitter />
+            </a>
+            <a href="https://www.instagram.com/_agile360pmc/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+              <FaInstagram />
+            </a>
+          </div>
         </div>
       </motion.div>
     </div>
 
-    <hr className="border-t border-white mx-6 md:mx-20" />
+    <hr className="border-t border-white mx-auto max-w-7xl my-4" />
 
+    {/* Bottom Bar */}
     <motion.div
-      className="max-w-screen-xl mx-auto px-4 py-6 text-sm text-gray-300 flex justify-center"
+      className="max-w-7xl mx-auto px-4 py-6 text-base text-gray-300 text-center font-medium"
       variants={fadeInUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.3 }}
       custom={5}
     >
-      <p className="text-center">
-        © 2025 <span className="text-white font-semibold">Agile360PMC</span>. Designed &amp; Developed by{' '}
+      <p>
+        © 2025 <span className="text-white font-bold">Agile360PMC</span>. Designed &amp; Developed by{' '}
         <a
           href="https://web.facebook.com/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-white font-semibold hover:underline"
+          className="text-white font-bold hover:underline"
         >
           Xom-Codes
         </a>
       </p>
     </motion.div>
 
+    {/* Scroll to top button */}
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       className="fixed bottom-6 right-6 border-2 border-orange-500 text-orange-500 p-3 rounded-full hover:bg-orange-500 hover:text-white transition"

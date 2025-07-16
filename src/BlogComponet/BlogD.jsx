@@ -38,7 +38,7 @@ export default function BlogD() {
   };
 
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full">
       <div className="max-w-3xl mx-auto px-4 py-14">
         <div className="bg-purple-100 rounded-2xl shadow-lg p-6 sm:p-8">
           <h2 className="text-xl sm:text-2xl font-semibold text-purple-700 mb-5 text-center">

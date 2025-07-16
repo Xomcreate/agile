@@ -5,18 +5,18 @@ import { Link } from 'react-router-dom';
 
 function HomeE() {
   return (
-    <div className="w-full py-10 px-2 text-white font-sans">
-      <div className="rounded-3xl py-10 px-6 md:px-12 mx-4 md:mx-16 bg-[#af08af]">
+    <div className="w-full py-12 px-4 md:px-10 lg:px-20 text-white font-sans ">
+      <div className="bg-[#af08af] rounded-3xl px-6 py-10 md:px-12 max-w-[95rem] mx-auto min-h-[380px] shadow-md">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 
           {/* 🔵 Left Side */}
-          <div className="space-y-5 text-center md:text-left">
+          <div className="space-y-6 text-center md:text-left">
             <h2 className="text-lg md:text-2xl font-bold uppercase flex items-center justify-center md:justify-start gap-2">
               <FaTags className="text-yellow-300" />
               Custom Pricing Plans
             </h2>
 
-            <p className="text-sm md:text-base font-medium leading-snug">
+            <p className="text-sm md:text-base font-medium leading-relaxed">
               We believe every organization is unique. That’s why our pricing is fully tailored to match your exact needs, goals, and scale.
             </p>
 

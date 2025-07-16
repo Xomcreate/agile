@@ -31,7 +31,7 @@ const zoomIn = {
 
 function ServiceA() {
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full">
       <div className="grid h-[80vh] w-full px-[20px] md:px-[100px] py-[10px]">
         <motion.div
           variants={zoomIn}

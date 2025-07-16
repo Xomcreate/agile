@@ -18,7 +18,7 @@ const fadeInUp = {
 
 export default function ContactA() {
   return (
-    <div className="w-screen overflow-hidden">
+    <div className="w-full">
       <div className="grid h-[80vh] w-full">
         <motion.div
           initial="hidden"

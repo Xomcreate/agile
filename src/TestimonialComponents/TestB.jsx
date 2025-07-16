@@ -50,8 +50,8 @@ const cardVariant = {
 
 export default function TestB() {
   return (
-    <div className="w-screen overflow-hidden">
-      <div className="px-4 md:px-20 py-16 bg-white">
+    <div className="w-full">
+      <div className="px-4 md:px-20 py-16 bg-white max-w-screen-2xl mx-auto">
         <motion.h2
           className="text-2xl md:text-3xl font-semibold text-center text-purple-700 mb-3"
           initial={{ opacity: 0, y: 30 }}

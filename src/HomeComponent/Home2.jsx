@@ -13,14 +13,14 @@ export default function HomeC() {
   }, []);
 
   return (
-    <div className="w-full px-4 md:px-16 py-16 bg-gray-100 min-h-screen">
+    <div className="w-full px-4 md:px-16 py-8 bg-gray-100">
       <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-12"
+        className="text-center mb-6"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-3">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
           Our <span className="text-purple-700">Latest Works</span>
         </h2>
         <p className="text-gray-600 max-w-xl mx-auto">
@@ -34,7 +34,7 @@ export default function HomeC() {
             <motion.div
               key={work._id}
               whileHover={{ scale: 1.03 }}
-              className="bg-white rounded-xl shadow-md border p-5 transition-all"
+              className="bg-white rounded-xl shadow-md border p-4 transition-all"
             >
               <img
                 src={work.images?.[0]?.url || 'fallback.jpg'}
