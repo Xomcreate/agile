@@ -33,20 +33,24 @@ export default function HomeC() {
           works.map((work) => (
             <motion.div
               key={work._id}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white rounded-xl shadow-md border p-4 transition-all"
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-xl shadow-md p-4 transition-all"
             >
-              <img
-                src={work.images?.[0]?.url || 'fallback.jpg'}
-                alt={work.title}
-                className="w-full h-56 object-cover rounded-lg mb-4"
-              />
-              <h3 className="text-xl font-bold text-gray-800 mb-2">{work.title}</h3>
-              <p className="text-sm text-gray-600">
-                {work.description.length > 100
-                  ? `${work.description.slice(0, 100)}...`
-                  : work.description}
-              </p>
+              <div className="w-full h-72 flex items-center justify-center overflow-hidden rounded-lg mb-4">
+                <img
+                  src={work.images?.[0]?.url || 'fallback.jpg'}
+                  alt={work.title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="text-center">
+                <h3 className="text-xl font-bold text-gray-800 mb-2">{work.title}</h3>
+                <p className="text-sm text-gray-600">
+                  {work.description.length > 100
+                    ? `${work.description.slice(0, 100)}...`
+                    : work.description}
+                </p>
+              </div>
             </motion.div>
           ))
         ) : (
