@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/agi.jpeg';
 import {
   FaMapMarkerAlt,
@@ -25,16 +26,10 @@ const fadeInUp = {
 };
 
 const Footer = () => (
-  <motion.footer
-    className="bg-[purple] text-white pt-20 px-6 md:px-20 text-lg leading-relaxed"
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 1 }}
-  >
+  <footer className="bg-[purple] text-white pt-20 px-6 md:px-20 text-lg leading-relaxed">
     <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14 pb-16">
       
-      {/* Logo & Newsletter */}
+      {/* Logo & Description */}
       <motion.div
         variants={fadeInUp}
         initial="hidden"
@@ -48,26 +43,6 @@ const Footer = () => (
           Agile360 PMC is a project management consulting firm specializing in
           HR consulting and Sponsor Compliance audits and solutions.
         </p>
-        <div className="space-y-3">
-          <label htmlFor="mail" className="block text-base font-semibold text-center md:text-left">
-            Enter E-Mail*
-          </label>
-          <div className="flex w-full">
-            <input
-              id="mail"
-              type="email"
-              placeholder="example@mail.com"
-              className="flex-1 px-4 py-3 text-black bg-white rounded-l-md text-base focus:outline-none"
-            />
-            <button
-              onClick={() => (window.location.href = '/')}
-              className="bg-black hover:bg-gray-800 px-5 py-3 rounded-r-full text-white font-semibold"
-            >
-              Subscribe
-            </button>
-          </div>
-          <div className="border-b border-white mt-4" />
-        </div>
       </motion.div>
 
       {/* Company Links */}
@@ -90,7 +65,9 @@ const Footer = () => (
             ['/contact', 'Contact'],
           ].map(([link, label]) => (
             <li key={label}>
-              <a href={link} className="hover:underline">{label}</a>
+              <Link to={link} className="hover:underline">
+                {label}
+              </Link>
             </li>
           ))}
         </ul>
@@ -115,7 +92,9 @@ const Footer = () => (
             'Additional Services',
           ].map((service, index) => (
             <li key={index}>
-              <a href="/service" className="hover:underline">{service}</a>
+              <Link to="/service" className="hover:underline">
+                {service}
+              </Link>
             </li>
           ))}
         </ul>
@@ -131,39 +110,50 @@ const Footer = () => (
         custom={4}
       >
         <h2 className="text-2xl font-bold mb-2">Contact</h2>
-
         <div className="space-y-3 text-base">
           <div className="flex items-start gap-2 justify-center md:justify-start">
             <FaMapMarkerAlt className="mt-1" />
             <div>
               <p className="font-semibold">Our address:</p>
               <p className="font-medium mt-1">
-                116a Brandshawgate Manchester, Leigh, WN7 4NP<br />
+                116a Brandshawgate Manchester, Leigh, WN7 4NP
+                <br />
                 United Kingdom
               </p>
             </div>
           </div>
-
           <hr className="border-dashed border-white my-3" />
-
           <div className="flex items-center gap-2 justify-center md:justify-start">
             <FaPhoneAlt />
             <p className="font-semibold">(+44) 7770627646</p>
           </div>
-
           <div className="flex items-center gap-2 justify-center md:justify-start">
             <FaEnvelope />
             <p className="font-semibold">Contact@agile360-pmc.com</p>
           </div>
-
           <div className="flex gap-5 justify-center md:justify-start pt-3">
-            <a href="https://www.facebook.com/share/1FVpy2jaZP/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+            <a
+              href="https://www.facebook.com/share/1FVpy2jaZP/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white text-gray-300 text-xl"
+            >
               <FaFacebookF />
             </a>
-            <a href="https://x.com/Agile360pmc" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+            <a
+              href="https://x.com/Agile360pmc"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white text-gray-300 text-xl"
+            >
               <FaTwitter />
             </a>
-            <a href="https://www.instagram.com/_agile360pmc/" target="_blank" rel="noopener noreferrer" className="hover:text-white text-gray-300 text-xl">
+            <a
+              href="https://www.instagram.com/_agile360pmc/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white text-gray-300 text-xl"
+            >
               <FaInstagram />
             </a>
           </div>
@@ -202,7 +192,7 @@ const Footer = () => (
     >
       <FaArrowUp />
     </button>
-  </motion.footer>
+  </footer>
 );
 
 export default Footer;
