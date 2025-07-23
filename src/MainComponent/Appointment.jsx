@@ -121,6 +121,8 @@ export default function Appointment() {
           <option value="policies">Developing HR Policies</option>
           <option value="planning">Manpower Planning, Recruitment & Planning</option>
           <option value="structure">Organisational Design & Structure</option>
+           <option value="visa">Visa Application</option>
+            <option value="audit">Compliance Audit</option>
         </select>
 
         <input

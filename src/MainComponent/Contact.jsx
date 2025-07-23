@@ -1,6 +1,6 @@
 import React from 'react'
 import ContactA from '../ContactComponet/ContactA'
-import ContactC from '../ContactComponet/ContactC'
+// import ContactC from '../ContactComponet/ContactC'
 import ContactD from '../ContactComponet/ContactD'
 import ContactB from '../ContactComponet/ContactB'
 
@@ -10,7 +10,7 @@ function Contact() {
     <div>
         <ContactA/>
         <ContactB/>
-        <ContactC/>
+        {/* <ContactC/> */}
         <ContactD/>
     </div>
     

@@ -74,7 +74,7 @@ export default function AboutD() {
             {[
               'Professional Team Members',
               'Innovative Business Solutions',
-              'Lifetime Free Services',
+              'Lifetime Retainer',
               'Affordable Pricing Plans',
             ].map((item, index) => (
               <motion.div

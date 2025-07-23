@@ -54,9 +54,9 @@ export default function Home1() {
             Services
           </h2>
           <p className="mt-4 text-[15px] md:text-lg max-w-2xl mx-auto text-gray-700 leading-relaxed font-medium">
-            Unlocking Your Business's Potential with <br />
-            the Best Innovate Consulting active and <br />
-            Dedicated Customers
+          We Unlock Your Business Potential  <br />
+            Through Innovative Consulting, Streamlined Compliance Audits <br />
+           Proactive Solutions, and a Commitment to Customers Success.
           </p>
         </motion.div>
 

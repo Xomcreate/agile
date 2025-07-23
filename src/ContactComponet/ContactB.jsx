@@ -179,6 +179,8 @@ export default function ContactB() {
                   <option value="policies">Developing HR Policies</option>
                   <option value="planning">Manpower Planning, Recruitment & Planning</option>
                   <option value="structure">Organisational Design & Structure</option>
+                  <option value="visa">Visa Application</option>
+                  <option value="audit">Compliance Audit</option>
                 </select>
                 <FaChevronDown className="absolute top-2.5 right-3 text-gray-400 text-sm" />
               </div>

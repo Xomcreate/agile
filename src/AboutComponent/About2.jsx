@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaCheckCircle, FaSmile, FaStar } from 'react-icons/fa';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
+import { Link } from 'react-router-dom';
 
 export default function About2() {
   const { ref, inView } = useInView({ threshold: 0.3 });
@@ -19,15 +20,16 @@ export default function About2() {
       >
         {/* Header and Button */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <div className="text-xl md:text-3xl font-extrabold leading-tight">
-            <p>Get The Latest Achievement</p>
-            <p>for HR Consult</p>
+          <div className="text-xl md:text-2xl font-extrabold leading-tight text-center md:text-left">
+            <p className="leading-snug">Partner With Us and Experience</p>
+            <p className="leading-snug">Bespoke Services Tailored</p>
+            <p className="leading-snug">To Your Business Needs</p>
           </div>
-          <a href="/contact">
+          <Link to="/contact">
             <button className="bg-white text-purple-700 font-bold py-3 px-6 rounded-full shadow-md hover:bg-purple-100 transition">
               <u>Get</u> Started Now
             </button>
-          </a>
+          </Link>
         </div>
 
         {/* Divider Line */}

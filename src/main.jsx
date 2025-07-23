@@ -21,10 +21,12 @@ import AdminLogin from './MainComponent/AdminLogin';
 import ProtectedRoute from './ProtectedRoute';
 import NotFound from './MainComponent/NotFound';
 import Career from './MainComponent/Career';
+import ScrollToTop from './MainComponent/ScrollToTop'; // ✅ Import it here
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop /> {/* ✅ This ensures page scrolls to top on every route */}
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -33,9 +35,9 @@ createRoot(document.getElementById('root')).render(
         <Route path="/service" element={<Services />} />
         <Route path="/test" element={<Testimonial />} />
         <Route path="/blog" element={<Blog />} />
-          <Route path="/car" element={<Career />} />
+        <Route path="/car" element={<Career />} />
         <Route path="/admin-login" element={<AdminLogin />} />
-        
+
         {/* 🔐 Protected Route */}
         <Route
           path="/mercy"
@@ -47,8 +49,8 @@ createRoot(document.getElementById('root')).render(
         />
 
         {/* 404 */}
-       <Route path="/not-found" element={<NotFound />} />
-<Route path="*" element={<Navigate to="/not-found" />} />
+        <Route path="/not-found" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/not-found" />} />
       </Routes>
       <Footer />
     </BrowserRouter>
